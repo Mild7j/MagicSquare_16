@@ -1,0 +1,22 @@
+---
+description: MagicSquare Python 코드 스타일 규칙
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python Code Style
+
+- Python 버전은 `3.10+` 기준으로 작성한다.
+- PEP8을 엄격히 준수한다.
+- 최대 줄 길이는 `88`을 기본으로 한다.
+
+## Type Hints
+
+- 모든 함수 파라미터에 타입힌트를 명시한다.
+- 모든 함수 반환 타입을 명시한다.
+- 타입 정보가 불명확하면 `Any` 대신 구체 타입을 우선한다.
+
+## Docstrings
+
+- 모든 public 함수/메서드에 Google 스타일 docstring을 작성한다.
+- docstring에는 최소 `Args`, `Returns`, `Raises`를 필요한 범위에서 포함한다.

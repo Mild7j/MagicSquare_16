@@ -1,0 +1,22 @@
+---
+description: MagicSquare 금지 패턴 및 대체 지침
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Forbidden Patterns
+
+## print()
+
+- 금지 이유: 프로덕션 로그 품질 저하 및 테스트 출력 오염
+- 대안: `logging` 모듈의 구조화된 로그 사용
+
+## Hardcoded Constants
+
+- 금지 이유: 변경 영향 추적 어려움, 중복으로 인한 불일치 위험
+- 대안: 상수 모듈, 설정 파일, 환경변수로 분리
+
+## Bare except
+
+- 금지 이유: 예외 원인 은닉으로 디버깅/장애 분석 어려움
+- 대안: 구체 예외 타입 지정 후 로깅 및 필요 시 재발생
