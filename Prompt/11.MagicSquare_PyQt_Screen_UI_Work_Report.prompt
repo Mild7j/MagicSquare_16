@@ -1,0 +1,94 @@
+# MagicSquare PyQt Screen UI Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/11.MagicSquare_PyQt_Screen_UI_Work_Report.md
+
+[USER]
+(프롬프트 정정) test_ac_fr_01_01_invalid_size.py / TestInvalidSizeFailureReturn — GREEN 단일 테스트
+
+[ASSISTANT]
+Prompt/10 생성 후 사용자 요청으로 삭제.
+test_ac_fr_01_01_invalid_size.py::test_none_grid_returns_invalid_size_error → 1 passed (이미 GREEN).
+Report/10, Prompt/10 Export.
+
+[USER]
+TDD green red 묶음 커밋 — GREEN 처리 순서 (G01~G51) 정리 요청
+
+[ASSISTANT]
+58 tests: 34 GREEN, 24 RED Skeleton.
+G01~G27 AC-FR-01-01 완료. G28~G51 U-IN/D-* proxy node id + 커밋 C1~C12 제안.
+
+[USER]
+TDD GREEN Track A — test_u_in_04_08, G1 Given 통과 계획
+
+[ASSISTANT]
+test_u_in_04_08_input_validation.py 없음. test_u_in_red.py Skeleton만 존재.
+G1=[[16,3,2,13],[5,0,11,8],[9,6,0,12],[4,15,14,1]]. C1~C6 커밋 순서 제안.
+
+[USER]
+Track B Turn 5~8 (D-LOC/MIS/VAL/SOL) node id · 목표 정리
+
+[ASSISTANT]
+test_d_loc_01_*.py 등 Full RED 파일 없음. proxy=test_d_*_red.py.
+Turn 5~7 병렬, Turn 8은 5+6+7 선행. G1/G0 SSOT 표.
+
+[USER]
+TDD GREEN Control — SolvePartialMagicSquare.resolve, G1 [2,2,7,3,3,10]
+
+[ASSISTANT]
+SolvePartialMagicSquare RED 테스트 없음. Entity stub → BLOCKED.
+orchestration 설계: locate→find→solve.
+
+[USER]
+TDD GREEN Track A U-OUT-01 — Success envelope type=OK
+
+[ASSISTANT]
+test_u_out_01_03_output_contract.py 없음. Turn 4~9 미완 → BLOCKED.
+
+[USER]
+Screen UI 구현 — PyQt6, boundary.screen.app, G1 기본값, 풀기, UIBoundary.solve
+선행 Turn 10 GREEN. --verify grid=None 분리.
+
+[ASSISTANT]
+구현:
+- pyproject.toml [gui]
+- boundary/screen/app.py shim + src/boundary/screen/app.py (MagicSquareMainWindow)
+- Entity value_objects + services (locate/find/validate/solve)
+- SolvePartialMagicSquare orchestration
+- UIBoundary → resolve 위임
+
+수동(headless):
+- G1 → 2, 2, 10, 3, 3, 7 (Attempt 2 — FR-05)
+- zeros → 오류
+- --verify None → Grid must be 4x4.
+
+pytest: 25 passed, 24 failed (Skeleton unchanged).
+
+Commit: feat(boundary): add Magic Square 4x4 PyQt screen wired to UIBoundary
+
+[USER]
+실행 방법 pip install -e ".[gui]" / python -m boundary.screen.app 맞는지?
+
+[ASSISTANT]
+맞음. .venv 활성화 후:
+  pip install -e ".[gui]"
+  python -m boundary.screen.app
+  python -m boundary.screen.app --verify
+
+[USER]
+@terminals/11.txt — pip install PyQt6 OSError long path (Windows Store Python)
+
+[ASSISTANT]
+원인: Git Bash에서 전역 Store Python pip → user site-packages long path 실패.
+해결: 프로젝트 .venv 사용
+  source .venv/Scripts/activate
+  python -m pip install -e ".[gui]"
+또는 .venv/Scripts/python.exe -m pip install -e ".[gui]"
+
+[USER]
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘
+파일 이름 프리픽스에 번호를 붙이고, prompt 도 동일한 이름을 사용하되 확장자만 .prompt 로 부탁해
+
+[ASSISTANT]
+요청 순서대로 수행:
+1) Report/11.MagicSquare_PyQt_Screen_UI_Work_Report.md 생성
+2) Prompt/11.MagicSquare_PyQt_Screen_UI_Work_Report.prompt (본 파일)

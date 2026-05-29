@@ -3,21 +3,37 @@
 from __future__ import annotations
 
 from src.boundary.schemas import ErrorResponse
+from src.boundary.validator import BoundaryValidator
+from src.control.solve_partial_magic_square import SolvePartialMagicSquare
 
 
 class UIBoundary:
-    """Orchestrates input validation and Domain execution for external callers."""
+    """Orchestrates input validation and Control resolution for external callers."""
+
+    def __init__(
+        self,
+        validator: BoundaryValidator | None = None,
+        solver: SolvePartialMagicSquare | None = None,
+    ) -> None:
+        """Initialize the boundary facade with injectable dependencies.
+
+        Args:
+            validator: Boundary validator for input size contracts.
+            solver: Control-layer resolver for size-valid grids.
+        """
+        self._validator = validator or BoundaryValidator()
+        self._solver = solver or SolvePartialMagicSquare()
 
     def solve(self, matrix: list[list[int]] | None) -> ErrorResponse | list[int]:
-        """Validate input and return a contract result or failure envelope.
+        """Validate input size and delegate to Control when the contract passes.
 
         Args:
             matrix: External 4x4 input grid.
 
         Returns:
-            Six-element success vector or standard ErrorResponse on failure.
-
-        Raises:
-            NotImplementedError: Boundary orchestration is not implemented yet.
+            ErrorResponse when size validation fails; otherwise resolver output.
         """
-        raise NotImplementedError("UIBoundary.solve is not implemented yet.")
+        size_error = self._validator.validate_size(matrix)
+        if size_error is not None:
+            return size_error
+        return self._solver.resolve(matrix)

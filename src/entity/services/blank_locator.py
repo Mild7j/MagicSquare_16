@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from src.entity.value_objects.grid_size import GRID_SIZE
+from src.entity.value_objects.magic_constant import BLANK_VALUE
+
 
 def find_blank_coords(matrix: list[list[int]]) -> list[tuple[int, int]]:
     """Return two blank coordinates in row-major order (1-index).
@@ -11,8 +14,10 @@ def find_blank_coords(matrix: list[list[int]]) -> list[tuple[int, int]]:
 
     Returns:
         Two (row, col) pairs using 1-index coordinates.
-
-    Raises:
-        NotImplementedError: Domain logic is not implemented yet.
     """
-    raise NotImplementedError("find_blank_coords is not implemented yet.")
+    coords: list[tuple[int, int]] = []
+    for row_index in range(GRID_SIZE):
+        for col_index in range(GRID_SIZE):
+            if matrix[row_index][col_index] == BLANK_VALUE:
+                coords.append((row_index + 1, col_index + 1))
+    return coords
