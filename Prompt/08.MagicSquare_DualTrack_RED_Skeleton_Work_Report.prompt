@@ -1,0 +1,59 @@
+# MagicSquare Dual-Track RED Skeleton Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/08.MagicSquare_DualTrack_RED_Skeleton_Work_Report.md
+
+[USER]
+당신은 Dual-Track UI + Logic TDD 전문가입니다.
+
+**TDD phase: RED (Skeleton)** — 테스트 스켈레톤만 작성하십시오.
+
+## SSOT
+- Report/09.MagicSquare_DualTrack_RED_TestPlan_Design_Report.md
+- docs/PRD_MagicSquare.md v0.2
+- Report/02.MagicSquare_DualTrack_TDD_Design_Report.md
+- .cursorrules
+
+## 금지
+- src/ 운영 코드·stub 금지
+- GREEN / REFACTOR 금지
+- skip, xfail, assert 완화 금지
+- 실제 기대값 assert 금지
+- Report/08 기존 test_ac_fr_01_01_*.py 수정·삭제 금지 (13건 Full RED 유지)
+
+## 범위
+Report/09 중 미구현 pytest만:
+- Track A: U-IN-04~08, U-OUT-01~03, U-FLOW-02(확장)
+- Track B: D-LOC-01, D-MIS-01, D-VAL-01~06, D-SOL-01~04
+(U-IN-01~03 Report/08 Full RED — 중복 금지)
+
+## 규칙
+- pytest.fail("RED: <Test ID> — <요약>") 한 줄만
+- Given/When/Then 주석만
+- import: boundary.*, entity.services.*
+- tests/boundary/test_u_*.py, tests/entity/test_d_*.py
+- G0~G3 conftest 주석 placeholder; D-SOL-02 G2 TBD
+
+[ASSISTANT]
+RED Skeleton 8파일 생성:
+- tests/entity/conftest.py (G0~G3 주석)
+- tests/boundary/test_u_in_red.py (U-IN-04~08, 5 tests)
+- tests/boundary/test_u_out_red.py (U-OUT-01~03)
+- tests/boundary/test_u_flow_red.py (U-FLOW-02a~d)
+- tests/entity/test_d_loc_red.py, test_d_mis_red.py, test_d_val_red.py, test_d_sol_red.py
+
+pytest tests/boundary/ tests/entity/:
+- collected 25 / 7 errors
+- ModuleNotFoundError: boundary, entity.services
+- test_ac_fr_01_01_*.py 미수정
+- src/ 변경 없음
+
+24 Skeleton tests; collection ERROR = RED 인정.
+
+[USER]
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘.
+파일 이름 프리픽스에 번호를 붙이고, prompt 도 동일한 이름을 사용하되 확장자만 .prompt 로 부탁해
+
+[ASSISTANT]
+요청 순서대로 수행:
+1) Report/08.MagicSquare_DualTrack_RED_Skeleton_Work_Report.md 생성
+2) Prompt/08.MagicSquare_DualTrack_RED_Skeleton_Work_Report.prompt (본 파일)

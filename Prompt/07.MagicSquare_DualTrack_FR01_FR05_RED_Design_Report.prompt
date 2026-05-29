@@ -1,0 +1,69 @@
+# MagicSquare Dual-Track FR-01~FR-05 RED Design Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/07.MagicSquare_DualTrack_FR01_FR05_RED_Design_Report.md
+
+[USER]
+당신은 Dual-Track UI + Logic TDD 전문가입니다.
+
+**TDD phase: RED** — 오직 RED 테스트 설계표만 작성하십시오.
+
+## 금지 (엄격)
+- 구현 코드, 테스트 코드, 스켈레톤 코드 작성 금지
+- 클래스/파일 구조 확정 금지
+- GREEN / REFACTOR 단계 진입 금지
+- pytest 실행·코드 생성·파일 저장 금지 (설계표 텍스트 출력만)
+
+## SSOT (반드시 참조)
+- docs/PRD_MagicSquare.md v0.2
+- Report/02.MagicSquare_DualTrack_TDD_Design_Report.md
+- .cursorrules (ECB, Dual-Track, Test ID 규칙)
+
+## 프로젝트 계약
+입력: 4×4 int[][], 0=빈칸(2개), 값 0 또는 1~16, 0 제외 중복 금지
+출력: int[6] = [r1,c1,n1,r2,c2,n2], 1-index
+마방진 상수: M=34
+검증 순서: null → size → empty count → value range → duplicate
+Boundary invalid: Failure envelope (E003/E001/E002/E004/E005), execute 0회 (U-FLOW-02)
+Domain Logic: Domain Mock 금지
+
+## Dual-Track RED 설계 요청
+TRACK A: U-IN-* (입력 5종 + null), U-OUT-* (길이 6, 1-index), U-FLOW-02 (execute 0회)
+TRACK B: find_blank_coords, find_not_exist_nums, is_magic_square (6분리), solution (4분리)
+Given: Report/02 G0,G1,G2,G3 (없으면 placeholder)
+출력 형식: UI RED Tests 표, Logic RED Tests 표, 검수 체크리스트
+
+[ASSISTANT]
+**TDD phase: RED** 설계표 출력.
+
+SSOT 확인:
+- docs/PRD_MagicSquare.md v0.2 읽음
+- Report/02.MagicSquare_DualTrack_TDD_Design_Report.md → 저장소에 없음 (surrogate: PRD TD-01/02, G0 완전 격자)
+- .cursorrules ECB·TDD 규칙 반영
+
+# UI RED Tests (19행 분량)
+- U-IN-01: matrix=null → E003
+- U-IN-02a~d: size ≠ 4×4 → E001 (3×4, 4×3, 5×5, [])
+- U-IN-03/04: blank count 0 / 3 → E002
+- U-IN-05/06: -1, 17 → E004
+- U-IN-07: duplicate → E005
+- U-OUT-01/02: len(result)==6, coords ∈ [1,4]
+- U-FLOW-02: invalid 시 execute.call_count==0
+
+# Logic RED Tests (12행)
+- D-LOC-01: G1 → (2,2),(3,3) row-major [I6]
+- D-MIS-01: G1 → {7,10} [I7,I11]
+- D-VAL-01~06: G0 true / row·col·diag·set·zero 분리 [I1~I5]
+- D-SOL-01~04: G1 Attempt1, G2 Attempt2, G3 UnsolvableDomainError, len/1-index [I8~I10]
+
+G0~G3 surrogate 표기, MagicConstant M=34, Domain Mock 금지 각 행 명시.
+
+검수 체크리스트 6항목 전부 [x].
+
+[USER]
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘.
+파일 이름 프리픽스에 번호를 붙이고, prompt 도 동일한 이름을 사용하되 확장자만 .prompt 로 부탁해
+
+[ASSISTANT]
+요청 순서대로 수행:
+1) Report/07.MagicSquare_DualTrack_FR01_FR05_RED_Design_Report.md 생성
+2) Prompt/07.MagicSquare_DualTrack_FR01_FR05_RED_Design_Report.prompt (본 파일)
