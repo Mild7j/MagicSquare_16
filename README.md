@@ -125,6 +125,31 @@ MagicSquare_xx/
 
 ## RED 단계 To-Do 리스트
 
+### Golden Master 회귀 안전장치
+
+> Refactoring 시작 전 구축. GREEN 완료 후 즉시 적용.
+
+#### 기준 파일 생성
+
+- [x] **GM-01:** `tests/golden_master_expected.txt` 생성
+- [x] **GM-02:** 정상/역순/오류 시나리오 추가 (GM-TC-01~05)
+- [ ] **GM-03:** `git add tests/golden_master_expected.txt`
+
+#### 테스트 코드
+
+- [x] **GM-04:** `tests/boundary/test_golden_master_magic_square.py` 작성
+- [x] **GM-05:** approve 패턴 적용 (`GOLDEN_MASTER_APPROVE=1`)
+- [x] **GM-06:** Golden Master 테스트 PASS 확인 (`pytest -m golden_master -v`)
+
+#### 회귀 보호
+
+- [x] **GM-07:** row-major 규칙 보호
+- [x] **GM-08:** 1-index 출력 보호
+- [x] **GM-09:** reverse 조합 fallback 보호
+- [x] **GM-10:** Error Contract 보호
+
+> 상세: [docs/golden_master_approve_design.md](./docs/golden_master_approve_design.md)
+
 > 이 체크리스트는 [docs/test_plan.md](./docs/test_plan.md) 기반으로 생성되었습니다.
 > 각 항목은 RED(실패 테스트 작성) 완료 시 체크합니다.
 

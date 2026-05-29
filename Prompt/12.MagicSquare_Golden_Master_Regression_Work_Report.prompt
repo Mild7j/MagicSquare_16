@@ -1,0 +1,105 @@
+# MagicSquare Golden Master Regression (GM-1~3) Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/12.MagicSquare_Golden_Master_Regression_Work_Report.md
+
+[USER]
+🔲 GM-1 기준 파일 생성 — Magic Square
+[P] 회귀 테스트(Approval/Golden Master) 설계 전문가
+[C] pytest/xUnit/Catch2
+[T] Magic Square Solver 출력 기반 Golden Master 기준 파일 생성
+구현:
+1. 시나리오: 정상/reverse/invalid blank/duplicate/no solution
+2. stdout 또는 Result DTO serialize
+3. approve 패턴 (없으면 생성, 있으면 diff)
+4. tests/golden_master_expected.txt + 생성 스크립트 + 설계 문서
+
+[ASSISTANT]
+탐색: UIBoundary.solve() 진입점, ErrorResponse|list[int] 반환, golden master 인프라 없음.
+실측 출력:
+- normal (후보 격자): [3,3,6,4,4,1]
+- reverse TD-02: [1,1,16,4,4,1]
+- invalid blank: INVALID_BLANK_COUNT
+- duplicate: ValueError (Boundary 미구현)
+- unsolvable: UNSOLVABLE (탐색 격자 SSOT)
+생성:
+- tests/golden_master_expected.txt
+- tests/golden_master/scenarios.py, approve.py
+- scripts/generate_golden_master.py
+- tests/boundary/test_golden_master_solve.py
+- docs/golden_master_approve_design.md
+pytest 6 passed (document + 5 scenarios)
+
+[USER]
+🔲 GM-2 테스트 코드 — Magic Square
+[T] Golden Master 테스트 코드 작성
+요구: API serialization, approve, @pytest.mark.golden_master,
+pytest -m golden_master -v, unified diff 실패 출력,
+GM-TC-01~05, int[6]/row-major/1-index/small-first/reverse/Error Contract
+[F] test_golden_master_magic_square.* + golden_master_expected.txt
+
+[ASSISTANT]
+GM-2 구현:
+- tests/boundary/test_golden_master_magic_square.py (8 tests)
+- tests/golden_master/contracts.py (계약 검증)
+- 시나리오 ID GM-TC-01~05로 baseline 갱신
+- pyproject.toml markers.golden_master
+- test_golden_master_solve.py 삭제(통합)
+GM-TC-01: PRD TD-01 격자로 교정 (Attempt 1 small-first)
+  출력 [1,3,3,3,4,12]
+pytest -m golden_master -v → 8 passed
+
+[USER]
+🔲 GM-3 README 업데이트
+@docs/README.md → 실제 README.md RED To-Do 아래
+Golden Master 회귀 안전장치 GM-01~10 체크리스트 삽입
+
+[ASSISTANT]
+README.md § RED 단계 To-Do 리스트 하위에
+### Golden Master 회귀 안전장치 추가
+GM-01~10, docs/golden_master_approve_design.md 링크
+GM-03 git add만 [ ] 유지
+
+[USER]
+python scripts/generate_golden_master.py 코드 비교
+(제안: golden_master_support, UIBoundary(solve_use_case=), --check)
+
+[ASSISTANT]
+비교표 제공:
+- 제안 코드는 golden_master_support 미존재, solve_use_case API 불일치,
+  boundary.* import 불가
+- 현재: tests/golden_master/ 패키지, write_golden_master, pytest approve
+- 제안의 유용한 부분: --check, approve_golden_master 공통화
+
+[USER]
+장점이 있다면 가져오되 동작을 해치지 않는 선에서 진행
+
+[ASSISTANT]
+tests/golden_master/approve.py에 approve_golden_master() 추가
+  반환 ok|created|updated
+write_golden_master, assert_golden_master_matches가 공통 함수 사용
+scripts/generate_golden_master.py:
+  --check (compare only, exit 1)
+  shebang + Usage docstring
+pytest GOLDEN_MASTER_APPROVE 힌트 유지
+검증:
+  generate --check → OK
+  generate → ok
+  pytest -m golden_master → 8 passed
+
+[USER]
+pytest tests/test_gm_01_magic_square_golden_master.py -v
+→ file not found
+
+[ASSISTANT]
+해당 파일 없음. 정정 경로:
+  tests/boundary/test_golden_master_magic_square.py
+  pytest -m golden_master -v
+  python scripts/generate_golden_master.py --check
+
+[USER]
+Report 폴더에 보고서 생성, Prompt 폴더에 Transcript Export
+번호 프리픽스, prompt 동일 이름 .prompt
+
+[ASSISTANT]
+Report/12.MagicSquare_Golden_Master_Regression_Work_Report.md 생성
+Prompt/12.MagicSquare_Golden_Master_Regression_Work_Report.prompt (본 파일)
