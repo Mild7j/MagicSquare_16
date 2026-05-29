@@ -1,0 +1,96 @@
+# MagicSquare REFACTOR Program Phase 0 Gate Assessment Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/15.MagicSquare_REFACTOR_Program_Phase0_Gate_Assessment_Work_Report.md
+
+[USER]
+당신은 Dual-Track UI + Logic TDD, Safe Refactoring, Golden Master, ECB 아키텍처 전문가입니다.
+
+프로젝트: MagicSquare_1004
+TDD Phase: **REFACTOR 프로그램** (다중 커밋, semantic-preserving)
+목적: Report/14 분석 + R-L/R-U 후보를 **우선순위 로드맵**으로 통합 실행
+
+(프로그램 목적, Phase 0 게이트 G-01~G-05, 고정 계약, Wave 1~4 로드맵 C1~C14,
+ Wave별 절차, Wave 완료 보고 형식, Golden Master 규칙, 금지 사항 전문 포함)
+
+첫 응답 요청 (Ask mode):
+1. Phase 0 게이트 현황 (pytest/G-01~G-05)
+2. Wave 1 착수 가능 여부
+3. C1(RF-01) 상세 실행 계획 (수정 파일·테스트·롤백)
+4. ISS-012-01 GM 영향 분석 (C3 시점)
+5. 예상 커밋 수·위험 구간 표
+
+(Agent mode 전환 시: "C1만 프롬프트 A로 실행" 지시)
+
+[ASSISTANT]
+Phase 0 게이트·Wave 1·C1·ISS-012-01·위험 구간 Ask mode 분석 수행.
+코드 변경 없음. pytest / GM --check 실측.
+
+## 1. Phase 0 게이트
+
+| 게이트 | 결과 |
+|--------|------|
+| G-01 pytest tests/ GREEN | FAIL — 22 failed, 47 passed (69). 문서 RED 19 대비 +3 |
+| G-02 GM-1 matched | PASS — test_golden_master_magic_square.py 8/8; --check OK |
+| G-03 U-FLOW-02, U-OUT-02~03, U-IN-06~08 | FAIL — 전부 pytest.fail RED |
+| G-04 D-SOL-03, SC-CTL-002~004 | FAIL — D-SOL-03 RED; SC-CTL 파일 없음 |
+| G-05 test_main_window.py | FAIL — 미존재 (screen/app.py 대응) |
+
+GM 경로 정합: tests/test_gm_01_*.py 없음 → tests/boundary/test_golden_master_magic_square.py
+
+RED 22건: u_flow 4, u_in 5, u_out 3, d_val 6, d_sol 3, d_mis 1.
+
+GREEN 축: ac_fr_01_01 invalid_size, resolve_isolation, ui_boundary_solve(2),
+golden_master(8), d_loc, d_sol_01.
+
+## 2. Wave 1 착수
+
+**불가.** Phase 0 미충족. Report/14 refactor_phase: 모든 테스트 GREEN 후 REFACTOR.
+
+선행 GREEN (REFACTOR 아님):
+- FR-01 완성 U-IN/U-FLOW
+- U-OUT UIBoundary
+- D-VAL/D-MIS/D-SOL-02~04 Entity
+- 신규 tests/control/test_solve_partial_magic_square.py (SC-CTL)
+- 신규 tests/boundary/test_main_window.py (G-05)
+
+## 3. C1 RF-01 (Gate 통과 후)
+
+목표: ValidationResult 신규 금지; ErrorResponse|None SSOT;
+InputValidator NotImplementedError 제거; BoundaryValidator 통합.
+
+파일: validator.py validate() chain; input_validator.py facade;
+constants E004/E005; ui_boundary 단일 검증 진입.
+
+검증: test_u_in_red, test_u_flow_red, GM, ac_fr invalid_size, ui_boundary_solve.
+
+롤백: GM diff revert; U-IN/U-FLOW revert; GM-TC-04 ValueError 재누출 시 롤백.
+
+커밋 예: refactor(boundary): consolidate InputValidator into BoundaryValidator SSOT (RF-01)
+
+## 4. ISS-012-01 @ C3 RF-03
+
+저장소 ISS-012-01 문자열 없음 → G1 int[6] SSOT 불일치 (Report/11).
+
+[2,2,7,3,3,10] Attempt-1 명세 vs [2,2,10,3,3,7] 런타임 Attempt-2.
+
+C3 SolutionResult.values:
+- tuple 바이트 동일 refactor → GM no-op (권장)
+- Attempt-1 SSOT 통일 → ui_boundary G1 diff → approve 필수
+
+GM-TC-01/02 낮음; GM-TC-04 C2와 순서 의존.
+
+## 5. 커밋·위험
+
+REFACTOR 14커밋 (Wave1 4 + Wave2 4 + Wave3 4 + Wave4 2).
+선행 GREEN 별도.
+
+위험 최고: Phase 0 GREEN (GM-TC-04 approve).
+C3 높음 (G1 vector). C2/C4/Screen 중간.
+
+[USER]
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘
+파일 이름 프리픽스에 번호를 붙이고, prompt 도 동일한 이름을 사용하되 확장자만 .prompt 로 부탁해
+
+[ASSISTANT]
+Report/15.MagicSquare_REFACTOR_Program_Phase0_Gate_Assessment_Work_Report.md 생성
+Prompt/15.MagicSquare_REFACTOR_Program_Phase0_Gate_Assessment_Work_Report.prompt (본 파일)
