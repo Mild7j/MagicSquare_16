@@ -1,0 +1,117 @@
+# MagicSquare P-09 Test Coverage Gate Assessment Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/16.MagicSquare_P09_Test_Coverage_Gate_Assessment_Work_Report.md
+
+[USER]
+P-09  테스트 커버리지 목표 확인
+목적	Domain Logic 95%+ / Boundary 85%+ 달성 여부 점검
+도구	pytest --cov=magicsquare --cov-report=term-missing
+
+▶ 커버리지 기준표
+출력 형식
+A. pytest 기준선
+•	전체 / entity / boundary / GM-1 결과
+B. 커버리지 요약
+레이어	Stmts	Miss	Cover	Gate	판정
+C. 파일별 상세 (핵심 production 파일만)
+D. Invariant 우선 Missing 목록
+E. 판정
+•	Domain ≥ 95%: PASS / FAIL
+•	Boundary ≥ 85%: PASS / FAIL
+•	REFACTOR gate (전역 ≥ 80% + RED 0): PASS / FAIL
+
+절대 규칙
+•	src/ production 코드 작성·수정 금지
+•	테스트 assert 완화·skip·xfail 제안 금지
+•	Logic Track에서 Domain Mock 제안 금지
+
+ECB 경로 매핑 (가상명 → 실경로)
+| domain.py | src/control/solve_partial_magic_square.py | Control |
+| Domain Logic | src/entity/services/*.py, value_objects/, exceptions/ | Entity |
+| boundary.py | src/boundary/ui_boundary.py, input_validator.py, schemas.py | Boundary |
+| gui | src/boundary/screen/main_window.py, app.py | Screen |
+
+참조: .cursorrules, docs/test_plan.md §6·§7, Report/02 (I1~I11)
+
+Step 0 — 기준선
+1. python -m pytest -q
+2. python -m pytest tests/test_gm_01_magic_square_golden_master.py -q
+3. 19 RED 존재 시 REFACTOR gate 미충족 명시
+
+Step 1 — Dual-Track 커버리지
+# Domain Track (≥ 95%)
+python -m pytest tests/entity/ tests/control/ --cov=src/entity --cov=src/control --cov-report=term-missing
+# Boundary Track (≥ 85%)
+python -m pytest tests/boundary/ --cov=src/boundary --cov-report=term-missing
+# 전역 gate (≥ 80%)
+python -m pytest --cov=src --cov-report=term-missing
+
+문서 정리. 프로젝트에 맞게 수정 후 실행.
+
+[ASSISTANT]
+Ask mode QA 커버리지 분석 수행. production 코드 변경 없음.
+
+## 프롬프트 정합 수정
+- --cov=magicsquare → --cov=src
+- GM-1: tests/boundary/test_golden_master_magic_square.py (test_gm_01_*.py 없음)
+- tests/domain/ → tests/entity/, src/domain/ → src/entity/
+- RED 문서 19건 → 실측 22건 (D-SOL-01·D-LOC-01 등 3건 GREEN)
+
+## A. pytest 기준선
+| 항목 | 결과 |
+|------|------|
+| 전체 pytest -q | FAIL — 47 passed, 22 failed, 69 collected |
+| entity | 10 passed, 10 failed |
+| boundary | 28 passed, 12 failed |
+| control | 9 passed, 0 failed |
+| GM-1 | PASS — 8/8 |
+
+RED 22건: u_flow 4, u_in 5, u_out 3, d_val 6, d_sol 3, d_mis 1.
+REFACTOR gate: RED 22 → 미충족.
+
+GREEN: ac_fr_01_01 invalid_size, resolve_isolation, ui_boundary_solve(2),
+golden_master(8), d_loc(2), d_sol_01.
+
+## B. 커버리지 요약
+| 레이어 | Stmts | Miss | Cover | Gate | 판정 |
+|--------|------:|-----:|------:|------|------|
+| Domain Track (entity+control) | 163 | 35 | 79% | ≥95% | FAIL |
+| Entity only | 124 | 11 | 91% | ≥95% | FAIL |
+| Control only | 39 | 27 | 31% | — | 주원인 |
+| Boundary Track (전체) | 136 | 79 | 42% | ≥85% | FAIL |
+| Boundary 핵심 (screen 제외) | 59 | 2 | 97% | ≥85% | PASS |
+| 전역 src/ | 299 | 87 | 71% | ≥80% | FAIL |
+
+Boundary 42%: screen/app.py 74 stmts 0% (GUI Out-of-Scope, cov 집계 포함).
+
+## C. 핵심 파일
+- magic_square_validator.py 83% — D-VAL RED, I1~I4
+- two_cell_solver.py 90~100% — D-SOL-02~04 미실행
+- missing_number_finder.py 100% — D-MIS-01 RED 스켈레톤 (간접 커버)
+- input_validator.py 80% — L23 NotImplementedError
+- ui_boundary.py 95% — L39 size-only path
+- solve_partial_magic_square.py 94~0% — SC-CTL 없음
+- screen/app.py 0% — G-05 테스트 없음
+
+## D. Invariant Missing (우선)
+- input_validator L23 → FR-01 → U-IN-04~08 RED
+- ui_boundary L39 → U-FLOW-02 RED
+- validator L24,28,36 → I4,I2 → D-VAL-03,05,06 RED
+- two_cell_solver L58,68 → I8,I10 → D-SOL-02,03 RED
+- solve_partial L32-36 → SC-CTL 없음
+- screen/app → G-05 없음
+
+## E. 판정
+- Domain ≥ 95%: FAIL (79% track / 91% entity)
+- Boundary ≥ 85%: FAIL (42% 전체 / 97% 핵심)
+- REFACTOR gate (≥80% + RED 0): FAIL (71% + RED 22)
+
+다음: FR-01 InputValidator GREEN → D-VAL → D-SOL-02~04 → SC-CTL 신규.
+
+[USER]
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘
+파일 이름 프리픽스에 번호를 붙이고, prompt 도 동일한 이름을 사용하되 확장자만 .prompt 로 부탁해
+
+[ASSISTANT]
+Report/16.MagicSquare_P09_Test_Coverage_Gate_Assessment_Work_Report.md 생성
+Prompt/16.MagicSquare_P09_Test_Coverage_Gate_Assessment_Work_Report.prompt (본 파일)
