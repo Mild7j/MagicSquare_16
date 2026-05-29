@@ -1,0 +1,119 @@
+# MagicSquare ECB Refactoring Plan Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/14.MagicSquare_ECB_Refactoring_Plan_Work_Report.md
+
+[USER]
+리팩토링 대상:
+@src/control/solve_partial_magic_square.py
+@src/boundary/ui_boundary.py
+@src/boundary/screen/main_window.py
+
+1. 각 파일에 대응하는 test_*.py가 있는지, 없으면 어떤 테스트가 필요한지
+2. 현재 RED 스켈레톤(pytest.fail) 중 리팩토링 전 GREEN으로 만들어야 할 것
+3. 테스트 없이 리팩토링을 시작하면 안 되는 이유 (한 줄)
+REFACTOR phase 기준(.cursorrules)으로 답해줘.
+
+[ASSISTANT]
+전제: main_window.py 미존재 → screen/app.py가 Screen UI 실체.
+
+테스트 갭:
+- solve_partial: tests/control/test_solve_partial_magic_square.py 없음 (신규)
+- ui_boundary: test_ui_boundary_solve.py 부분 GREEN + RED 3파일 12건
+- screen/app.py: tests/boundary/screen/test_app.py 없음 (신규)
+
+RED→GREEN 필수 (대상 연관):
+- test_u_flow_red U-FLOW-02 (4) — Control 격리
+- test_u_out_red U-OUT-01~03 (3) — int[6]
+- test_u_in_red U-IN-04~08 (5) — E002/E004/E005
+- test_d_sol_red D-SOL-02~04 (3), test_d_mis_red D-MIS-01 (1)
+- suite gate: test_d_val_red D-VAL-01~06 (6)
+합계 RED 25건
+
+한 줄: .cursorrules refactor_phase — 모든 테스트 GREEN 후에만 리팩터링.
+
+[USER]
+ECB 매핑 domain/boundary/gui → 실제 파일.
+연관: input_validator.py, two_cell_solver.py, .cursorrules
+
+점검: 이름, 중복, 긴 함수, 매직넘버, 긴 매개변수, 불필요 주석,
+미사용, 예외 오용, dead code, ECB 혼재.
+우선순위 High/Medium/Low.
+출력: | 파일명 | 줄번호 | 스멜 종류 | 문제 설명 | 우선순위 |
+Step 1 테스트 갭·Step 2 High 스멜 연결 P0/P1.
+
+[ASSISTANT]
+main_window → app.py.
+
+High 스멜 (요약):
+- ui_boundary 47-50 ResolveError만 catch → ValueError 누출 GM-TC-04
+- ui_boundary 37-45 E004/E005 미검증
+- solve_partial 29-31 entity 이중 호출 (solution 내부 재실행)
+- app.py 97-99 int[6] blind unpack
+- app.py 22-23 Screen→Entity VO import
+- MagicSquareService vs UIBoundary 이중 orchestration
+- input_validator vs BoundaryValidator 이중 SSOT
+- two_cell_solver 50 duplicate → ValueError
+
+P0: validator FR-01 GREEN + envelope + solve_partial 29-30 제거
+P1: app.py import/bootstrap 분리, Control SSOT 통합
+
+[USER]
+ECB 역할 현황, 잘못된 위치 코드 이동 대상,
+Control vs Entity 혼재, REFACTOR 1순위 한 줄.
+Step 1·2 연계 P0/P1 표.
+
+[ASSISTANT]
+solve_partial → Control (Entity 알고리즘은 two_cell_solver).
+ui_boundary → Boundary 부분 (E004/E005 미완, must_not 레이어 이동 위반 없음).
+app.py → Screen 부적합 (Control/Entity import, bootstrap 혼재).
+
+1순위: ui_boundary+validator FR-01 GREEN 고정 후 solve_partial 29-30 제거.
+
+이동 대상:
+- app build_ui_boundary → composition/bootstrap
+- entity VO → boundary UI constants
+- input_validator → validator SSOT
+- solve_partial 29-30 제거
+
+[USER]
+SRP 점검 — 함수 다중 역할, 클래스 데이터+검증, UI 비즈니스 판단.
+위반만 파일:줄번호. 수정안 없음.
+
+[ASSISTANT]
+① 함수 다중 역할:
+- ui_boundary.py:28-50 검증+직렬화
+- solve_partial:28-41 orchestration+예외변환
+- app.py:45-75 UI+fixture 주입
+- app.py:106-126 UI+진단
+- app.py:138-156 bootstrap+routing
+
+② 클래스 복수 책임:
+- UIBoundary, SolvePartialMagicSquare, MagicSquareMainWindow, VerifyNoneWindow
+데이터+검증 혼재 형태: 해당 없음
+
+③ UI 비즈니스 판단: 해당 없음 (DTO→문자열 only)
+
+[USER]
+리팩토링 계획서 작성 (코드 수정 X):
+## 리팩토링 대상 목록
+## 테스트 선행 필요 항목
+## 리팩토링 후 검증 방법
+
+[ASSISTANT]
+Report 형식 계획서 작성:
+- P0 1-6: validator/envelope, RED GREEN, GM-TC-04, solve_partial 중복 제거, control tests
+- P1 7-10: app.py 분리, screen tests, MagicSquareService SSOT, constants
+- P2 11-13: grids, assert, VerifyNoneWindow
+
+검증: pytest tests/ -v, golden_master --check, cov 80%,
+E001~E007·int[6]·Control 격리·import grep·UI smoke
+
+실행 순서: P0 GREEN → P0 REFACTOR → P1 GREEN → P1 REFACTOR → P2
+
+[USER]
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘
+파일 이름 프리픽스에 번호를 붙이고, prompt 도 동일한 이름을 사용하되 확장자만 .prompt
+
+[ASSISTANT]
+Report/14.MagicSquare_ECB_Refactoring_Plan_Work_Report.md 생성
+Prompt/14.MagicSquare_ECB_Refactoring_Plan_Work_Report.prompt (본 파일)
