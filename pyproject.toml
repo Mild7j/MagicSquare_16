@@ -27,3 +27,6 @@ include = ["src*", "boundary*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+markers = [
+    "golden_master: Golden Master approve-pattern regression tests (GM-2)",
+]
