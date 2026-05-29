@@ -1,0 +1,131 @@
+# MagicSquare AC-FR-01-01 TDD Red-Green Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/06.AC_FR_01_01_TDD_Red_Green_Work_Report.md
+
+[USER]
+docs/PRD_MagicSquare.md 를 참고하여 테스트 플랜 작성을 위한 샘플 예제 1개를 선택해줘.
+선택 기준:
+1. PRD FR-01의 Acceptance Criteria 중 가장 선행 조건인 입력 유효성 검사
+2. 비즈니스 로직(grid is None → INVALID_SIZE 반환)을 직접 검증
+3. Boundary 계층과 Domain 진입점 호출 격리를 동시에 검증 가능한 기능
+선택한 예제에 대해 AC ID, PRD 요구사항 번호, 입력/기대 출력, 선택 이유 2줄 명시.
+코드 작성 금지. 선택 결과 문서만 출력.
+
+[ASSISTANT]
+AC-FR01-01 샘플 예제 선정 결과 문서 출력:
+- AC-FR01-01, FR-01 §10, BR-01, TC-E-01
+- grid=None → INVALID_SIZE / "Grid must be 4x4."
+- AC-FR01-05(Domain 미호출) 동시 커버 가능
+
+[USER]
+[P] 시니어 QA 리드. [C] Python 3.11+, pytest, pydantic, unittest.mock
+[T] 선택 샘플(AC-FR-01-01: grid=None → INVALID_SIZE) 기반 테스트 계획서 작성.
+포함: pytest 범위/우선순위, 경계값(None/[]/[[]]*4/3×4, 4×4 정상 제외),
+예외 케이스, mock/spy 격리 전략, 커버리지 95/85, pytest-cov 명령.
+[F] Markdown test_plan.md 저장.
+
+[ASSISTANT]
+test_plan.md 작성 완료 (후속 이동 전 루트 저장).
+
+[USER]
+README.md에 ## RED 단계 To-Do 리스트 섹션 삽입(기존 내용 유지).
+Track A/B, 커버리지, defect_list 연결 체크리스트 포함.
+
+[ASSISTANT]
+README.md "진행 상태"와 "다음 단계" 사이에 RED To-Do 리스트 삽입.
+
+[USER]
+[P] 시니어 Python QA. [C] Python 3.11+, pytest, pydantic, unittest.mock
+[T] AC-FR-01-01 범위 아이템 타입별 최소 5개 테스트.
+- 정상 실패: grid=None → INVALID_SIZE
+- 경계값: [], [[]]*4, 3×4
+- 격리: resolve() 0회
+- 메시지 문자 단위 비교
+- AC-FR-01-02~05, FR-02~05 포함 금지
+형식: Given-When-Then, # AC-FR-01-01, test_[조건]_[동작]_[포인트], RED 실패 상태.
+[F] 완성된 테스트 코드.
+
+[ASSISTANT]
+생성:
+- tests/boundary/test_ac_fr_01_01_invalid_size.py (18 tests)
+- tests/control/test_ac_fr_01_01_resolve_isolation.py (9 tests)
+- tests/boundary/conftest.py, tests/control/conftest.py
+RED: src.boundary 미구현 → ModuleNotFoundError
+
+[USER]
+정정: Python 3.13. 3.11 호환성 우려 시 수정.
+
+[ASSISTANT]
+점검: 3.13 호환 문법만 사용(PEP 604 등). 수정:
+- tests/boundary/constants.py 분리
+- tests/__init__.py 추가
+- test_plan.md 기술 스택 → Python 3.13
+ImportError는 버전 이슈 아님(구현 부재).
+
+[USER]
+test_plan.md는 docs로 이동.
+
+[ASSISTANT]
+test_plan.md → docs/test_plan.md 이동.
+README 링크 docs/test_plan.md로 수정.
+
+[USER]
+테스트 코드 실행 방법 알려줘. 가상환경 기준.
+
+[ASSISTANT]
+Git Bash + venv 가이드:
+- python -m venv .venv (py 대신 python)
+- pip install pytest pydantic pytest-cov
+- pytest tests/boundary tests/control -v
+현재 ImportError = RED 정상.
+
+[USER]
+터미널: py -3.13 -m venv .venv → bash: py: command not found
+
+[ASSISTANT]
+Git Bash에는 py 런처 없음 → python -m venv .venv 사용.
+
+[USER]
+터미널: pytest → ModuleNotFoundError: No module named 'src.boundary'
+
+[ASSISTANT]
+RED 단계 정상. src/boundary 미구현. entity 테스트로 환경 확인 가능.
+
+[USER]
+응 최소 구현해줘
+
+[ASSISTANT]
+Green 최소 구현:
+- src/boundary/{constants,schemas,validator}.py
+- src/control/magic_square_service.py
+- src/entity/completion_resolver.py (NotImplementedError 스텁)
+pytest: 27 passed (boundary+control).
+
+[USER]
+[P] QA 엔지니어. pytest 실패 로그 붙여넣을 것 — (로그 미첨부)
+1) 기대/실제 2) 파일:줄 3) 심각도 4) 최소 수정 diff + Green 절차
+
+[ASSISTANT]
+로그 미첨부. 세션 실패 사례 분석:
+- DEF-001 src.boundary ImportError → Green으로 해결
+- DEF-002 pydantic 미설치 → pip install
+- DEF-003 Git Bash py 없음 → python -m venv
+- 가정 AttributeError None 분기 → validator 예방 처리
+현재 34 passed.
+
+[USER]
+[P] QA 리드. defect_list.md 정리(표 형식 DEF-001~).
+README 결함 목록 연결 체크박스 업데이트.
+
+[ASSISTANT]
+defect_list.md 생성 (5건, 4 Closed, 1 Open DEF-004).
+README 체크박스 2개 완료 처리.
+
+[USER]
+Report 폴더에 보고서 생성, Prompt 폴더에 Transcript Export.
+문서 프리픽스 번호, prompt는 동일 이름 확장자만 변경.
+
+[ASSISTANT]
+요청 순서대로 수행:
+1) Report/06.AC_FR_01_01_TDD_Red_Green_Work_Report.md 생성
+2) Prompt/06.AC_FR_01_01_TDD_Red_Green_Work_Report.prompt (본 파일)
