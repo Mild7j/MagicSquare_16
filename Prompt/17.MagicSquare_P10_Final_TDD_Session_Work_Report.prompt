@@ -1,0 +1,124 @@
+# MagicSquare P-10 Final TDD Session — Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/17.MagicSquare_P10_Final_TDD_Session_Work_Report.md
+# Note: README lists Prompting/; repository stores transcripts under Prompt/
+
+---
+
+## 사용 방법
+
+1. **선행 확인:** `Report/` 최신 순번 → 본 세션은 **17** (`RPT-MS-017`).
+2. **Step 0 실측** (production 변경 금지, git·pytest 허용) 실행 후 Report에 반영.
+3. **산출:** `Report/17.*.md` + `Prompt/17.*.prompt` (또는 `Prompting/` 동일 내용).
+4. **커밋:** 사용자 지시 시에만.
+
+---
+
+## 워크플로 개요
+
+```
+기획(05~07) → RED(06,08) → GREEN(06,10,11) → GM(12) → REFACTOR 준비(14~16) → P-10 Export(17)
+```
+
+| Phase | Export only? | production |
+|-------|----------------|------------|
+| P-10 | ✅ | 변경 금지 |
+
+---
+
+## Turn 1 — User Prompt (원문 요약)
+
+```
+P-10 최종 작업 보고서 생성
+목적: 작업 전 과정(기획→RED→GREEN→Refactoring) 보고서 자동 생성
+산출물: Report 폴더 내 Markdown 보고서
+
+TDD Phase: Export only — Report + Prompting Transcript 생성
+(production 코드 변경 금지, git/테스트 실측 허용)
+
+선행 확인:
+- Report 최신 16 → 본 세션 17
+- Report/16, Prompting/, .cursorrules, README, docs/test_plan.md
+
+Step 0 실측:
+1. git branch --show-current
+2. git log --oneline -10
+3. git status --short
+4. python -m pytest -q
+5. GM-1: tests/boundary/test_golden_master_magic_square.py -q
+6. Dual-Track coverage (entity+control, boundary, src)
+
+Step 1: Report RPT-MS-017 (8섹션+공통) + Transcript
+
+프로젝트에 맞게 경로 정합 후 진행.
+```
+
+---
+
+## Turn 1 — Assistant 산출 요약
+
+### 프로젝트 정합 수정
+
+| 프롬프트 | MagicSquare_xx |
+|----------|----------------|
+| MagicSquare_1004 | MagicSquare_xx |
+| Prompting/ | **Prompt/** (실경로) |
+| test_gm_01_*.py | test_golden_master_magic_square.py |
+| --cov=magicsquare | --cov=src |
+| RED 19 | **RED 22** (3건 이미 GREEN) |
+
+### Step 0 실측 결과
+
+| # | 명령 | 결과 |
+|---|------|------|
+| 1 | `git branch --show-current` | `refactor/refactor` |
+| 2 | `git log --oneline -10` | b2f1295 … f776052 (docs+feat/fix) |
+| 3 | `git status --short` | `__pycache__` 3 files only |
+| 4 | `pytest -q` | **47 passed, 22 failed**, exit 1 |
+| 5 | GM-1 | **8 passed**, exit 0 |
+| 6a | Domain cov | entity+control **79%** (163 stmts, 35 miss) |
+| 6b | Boundary cov | **42%** (136/79); screen 제외 **97%** (59/2) |
+| 6c | Global cov | **71%** (299/87) |
+
+### 산출 파일
+
+- `Report/17.MagicSquare_P10_Final_TDD_Session_Work_Report.md` — RPT-MS-017
+- `Prompt/17.MagicSquare_P10_Final_TDD_Session_Work_Report.prompt` — 본 Transcript
+
+### 판정 요약
+
+- **REFACTOR gate:** FAIL (RED 22, cov 71%)
+- **GM-1:** PASS
+- **REFACTOR 코드 변경:** 미수행 (gate 선행 조건)
+
+---
+
+## 재개 프롬프트 템플릿
+
+```
+P-10 Export 후속 — RED→GREEN 착수
+
+전제: Report/17 (RPT-MS-017) 실측 기준
+브랜치: refactor/refactor
+
+1. U-IN-04~08 GREEN (InputValidator.validate, E002~E005)
+2. U-FLOW-02 GREEN (UIBoundary + execute spy)
+3. D-VAL-01~06 GREEN (is_magic_square)
+4. pytest -q → RED 0 목표
+5. Dual-Track cov 재측정 → Report/18 갱신
+
+규칙: .cursorrules tdd_rules, ECB 경계, Domain Mock 금지 (Logic Track)
+```
+
+---
+
+## 관련 링크
+
+| 문서 | 경로 |
+|------|------|
+| **본 Report** | [Report/17.MagicSquare_P10_Final_TDD_Session_Work_Report.md](../Report/17.MagicSquare_P10_Final_TDD_Session_Work_Report.md) |
+| 선행 P-09 | [Report/16](../Report/16.MagicSquare_P09_Test_Coverage_Gate_Assessment_Work_Report.md) |
+| REFACTOR gate | [Report/15](../Report/15.MagicSquare_REFACTOR_Program_Phase0_Gate_Assessment_Work_Report.md) |
+| RED 설계 | [Report/07](../Report/07.MagicSquare_DualTrack_FR01_FR05_RED_Design_Report.md) |
+| 테스트 계획 | [docs/test_plan.md](../docs/test_plan.md) |
+| ECB 규칙 | [.cursorrules](../.cursorrules) |

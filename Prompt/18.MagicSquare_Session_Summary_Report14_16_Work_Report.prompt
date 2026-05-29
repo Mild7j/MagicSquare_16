@@ -1,0 +1,93 @@
+# MagicSquare Session Summary (Report/14~16) — Interactive Transcript
+# Exported conversation prompt log
+# Report: Report/18.MagicSquare_Session_Summary_Report14_16_Work_Report.md
+# 작업자: mj | 단계: Session_Summary
+
+---
+
+## 사용 방법
+
+1. 선행 Report **14, 15, 16** 확인 후 본 Session Summary(18) Export.
+2. Step 0 실측(pytest, git) 후 Report 갱신.
+3. 동일 베이스명으로 `Report/18.*.md` + `Prompt/18.*.prompt` 생성.
+4. 원격 `magic16` → https://github.com/Mild7j/MagicSquare_16.git push (사용자 지시 시).
+
+---
+
+## Turn 1 — User Prompt (원문)
+
+```
+지금까지 작업한 내용을 Report 폴더에 Export 해줘.
+[위 확정 Export 프롬프트 전체 붙여넣기]
+[단계]: Session_Summary
+작업자: mj
+본 세션 범위: Report/14~16 (REFACTOR 준비·로드맵·QA 커버리지 분석)
+
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘
+파일 이름 프리픽스에 번호를 붙이고, prompt 도 동일한 이름을 사용하되 확장자만 .prompt 로 부탁해
+@https://github.com/Mild7j/MagicSquare_16.git
+에 지금까지 만든 산출물 전부 업로드해줘.
+```
+
+---
+
+## Turn 1 — Assistant 산출 요약
+
+### 번호·파일
+
+| 유형 | 경로 |
+|------|------|
+| Report | `Report/18.MagicSquare_Session_Summary_Report14_16_Work_Report.md` |
+| Transcript | `Prompt/18.MagicSquare_Session_Summary_Report14_16_Work_Report.prompt` |
+| 문서 ID | RPT-MS-018 |
+
+### Report/14~16 핵심 통합
+
+| Report | 핵심 결론 |
+|--------|-----------|
+| **14** | ECB REFACTOR 계획 — P0 GREEN → P0 REFACTOR; RF-01~14 로드맵 |
+| **15** | Phase 0 **미통과** (G-02 GM만 PASS); Wave 1 **착수 불가** |
+| **16** | 커버리지 **전 gate FAIL**; RED 22; Boundary screen 제외 97% |
+
+### Step 0 실측 (Export 시점)
+
+| 항목 | 결과 |
+|------|------|
+| branch | `refactor/refactor` |
+| pytest -q | 47 passed, 22 failed |
+| GM-1 | 8 passed |
+| Domain cov | 79% FAIL |
+| Boundary cov | 42% FAIL / contract 97% PASS |
+| Global cov | 71% FAIL |
+
+### GitHub
+
+- remote `magic16` → `https://github.com/Mild7j/MagicSquare_16.git`
+- push 대상: Report/17~18, Prompt/17~18 포함 미커밋 산출물
+
+---
+
+## 재개 프롬프트 템플릿
+
+```
+Session Summary 후속 — Phase 0 GREEN
+
+전제: Report/18 (mj), Report/14~16
+1. U-IN-04~08 + U-FLOW-02 GREEN
+2. U-OUT-01~03 GREEN
+3. D-VAL-01~06 GREEN
+4. pytest -q → RED 0
+5. magic16 push + Report/19 gate 재평가
+```
+
+---
+
+## 관련 링크
+
+| 문서 | 경로 |
+|------|------|
+| 본 Report | [Report/18](../Report/18.MagicSquare_Session_Summary_Report14_16_Work_Report.md) |
+| Report/14 | [ECB REFACTOR 계획](../Report/14.MagicSquare_ECB_Refactoring_Plan_Work_Report.md) |
+| Report/15 | [Phase 0 gate](../Report/15.MagicSquare_REFACTOR_Program_Phase0_Gate_Assessment_Work_Report.md) |
+| Report/16 | [P-09 커버리지](../Report/16.MagicSquare_P09_Test_Coverage_Gate_Assessment_Work_Report.md) |
+| 원격 저장소 | https://github.com/Mild7j/MagicSquare_16.git |
