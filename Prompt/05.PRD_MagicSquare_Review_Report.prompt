@@ -1,0 +1,1552 @@
+# Magic Square 4x4 PRD — Session Transcript
+_Exported on 5/29/2026 from Cursor agent transcript_
+
+---
+
+**User**
+
+당신은 PRD 작성 전문가이자 Dual-Track UI + Logic TDD 기반 제품 기획자입니다.
+
+목표:
+Magic Square 프로젝트 구현 전에 PRD를 작성하려고 합니다.
+
+단, 지금은 PRD 본문을 바로 작성하지 마십시오.
+먼저 PRD 작성에 참고해야 할 문서들을 분석하고,
+각 문서의 어떤 내용을 PRD의 어떤 섹션에 반영해야 하는지 정리해 주세요.
+
+프로젝트:
+- Magic Square 4x4
+- 목적: 알고리즘 난이도보다 불변식 기반 사고, 계약 기반 테스트, Dual-Track UI + Logic TDD, 리팩토링 훈련
+- 아키텍처: Clean Architecture + ECB
+- 테스트 방식: pytest, AAA 패턴, RED-GREEN-REFACTOR
+- 핵심 산출물: 구현 전 PRD
+
+참고 문서:
+1. Report/1.ProblemDefinition_Report.md
+2. Report/2.CleanArchitecture_DualTrack_TDD_Design_Report.md
+3. Report/3.DevelopmentEnvironment_CursorRules_ECB_UserEntity_Report.md
+4. Report/4.UserJourney_Epic_to_TechnicalScenario_Report.md
+5. .cursorrules
+6. .cursor/rules/*.mdc
+
+각 문서별 참고 목적:
+
+Report/1.ProblemDefinition_Report.md
+- PRD의 Background
+- Problem Definition
+- Why are we doing this now
+- Why Chain
+- 제품 동기
+- 사용자가 겪는 불편
+- 무엇을 닫아야 하는가
+
+Report/4.UserJourney_Epic_to_TechnicalScenario_Report.md
+- PRD의 Vision
+- Epic Goal
+- Persona
+- User Journey
+- User Story
+- Acceptance Criteria
+- Gherkin Scenario
+- Verification Checklist
+- Requirements와 Verification을 동시에 정리할 때 가장 중요한 1차 자료
+
+Report/2.CleanArchitecture_DualTrack_TDD_Design_Report.md
+- PRD의 Functional Scope
+- Input / Output Contract
+- Invariant Table
+- Domain Concept
+- Layer Boundary
+- 사용자에게 보장할 동작
+- 기능 명세 수준의 계약
+
+Report/3.DevelopmentEnvironment_CursorRules_ECB_UserEntity_Report.md
+- PRD의 Quality Requirements
+- Development Method
+- Engineering Principles
+- Constraints
+- ECB
+- TDD 단계
+- pytest / coverage
+- prohibited patterns
+
+.cursorrules + .cursor/rules/*.mdc
+- 팀이 따라야 할 상세 개발 규칙 원문
+- PRD의 Engineering Principles 또는 Appendix에 요약 반영
+- 상세 규칙이 필요할 경우 부록으로 연결
+
+작업 지시:
+1. 각 문서를 읽고 핵심 내용을 요약하십시오.
+2. 각 문서가 PRD의 어떤 섹션에 들어가야 하는지 매핑하십시오.
+3. 중복되는 내용은 어느 문서를 우선 출처로 삼을지 정하십시오.
+4. PRD 본문에 직접 넣을 내용과 부록으로 보낼 내용을 구분하십시오.
+5. 구현 코드나 테스트 코드는 작성하지 마십시오.
+6. 아직 PRD 본문 전체를 작성하지 마십시오.
+7. 이번 단계는 “PRD 작성 전 참고 문서 분석 및 매핑”만 수행하십시오.
+
+출력 형식:
+
+# PRD Reference Document Analysis
+
+## 1. Overall Judgment
+- PRD 작성 가능 여부:
+- 가장 중요한 1차 참고 문서:
+- 보조 참고 문서:
+- 누락된 정보:
+
+## 2. Document Summary
+
+| Document | Main Content | PRD Usage | Priority |
+|---|---|---|---|
+
+## 3. PRD Section Mapping
+
+| PRD Section | Primary Source | Secondary Source | Content to Extract |
+|---|---|---|---|
+
+## 4. Source Priority Rules
+
+| Topic | Primary Source | Reason |
+|---|---|---|
+
+## 5. Directly Transfer to PRD Body
+
+| Source Document | Content Type | Target PRD Section |
+|---|---|---|
+
+## 6. Move to Appendix or Engineering Principles
+
+| Source Document | Content Type | Target Appendix / Section |
+|---|---|---|
+
+## 7. Conflicts / Ambiguities
+
+| Issue | Related Document | Decision Needed |
+|---|---|---|
+
+## 8. Recommended PRD Outline
+
+아직 PRD를 작성하지 말고, 권장 목차만 작성하십시오.
+
+주의:
+- 구현 코드 작성 금지
+- 테스트 코드 작성 금지
+- 파일 수정 금지
+- PRD 본문 작성 금지
+- 참고 문서 분석과 매핑만 수행
+
+---
+
+**Cursor**
+
+요청하신 범위(문서 분석 및 PRD 섹션 매핑만)를 기준으로, 먼저 실제 파일 존재 여부와 문서 원문을 확인한 뒤 문서별 핵심/우선순위/부록 분리 기준까지 표로 정리하겠습니다. 지금은 코드나 파일 수정 없이 읽기 분석만 진행합니다.
+
+---
+
+**Cursor**
+
+요청하신 파일명과 실제 파일명이 일부 다릅니다(예: `1.ProblemDefinition...` 대신 `Problem-Definition-Report.md`). 이어서 실제 존재 파일 11개를 모두 읽고, 요청하신 PRD 섹션 기준으로 정합 매핑하겠습니다.
+
+---
+
+**Cursor**
+
+핵심 보고서 4개와 `.cursorrules`는 확인 완료했습니다. 이제 `.cursor/rules/*.mdc` 원문을 읽어, PRD 본문에 넣을 정책과 부록으로 내려야 할 세부 규칙을 분리하겠습니다.
+
+---
+
+**Cursor**
+
+# PRD Reference Document Analysis
+
+## 1. Overall Judgment
+- PRD 작성 가능 여부: **가능(조건부)**  
+  - 핵심 요구/불변식/계약/테스트 방법론은 충분히 확보됨
+  - 다만 시나리오 커버리지 갭(특히 Story→Scenario 매핑 누락)은 PRD 작성 시 명시적 보완 항목으로 관리 필요
+- 가장 중요한 1차 참고 문서:  
+  1) `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` (Vision~AC~시나리오)  
+  2) `Report/MagicSquare_4x4_TDD_Design_Report.md` (기능 계약/불변식/레이어 경계)  
+  3) `Report/Problem-Definition-Report.md` (Background/Problem/Why Chain)
+- 보조 참고 문서:  
+  - `Report/CursorRules_UserEntity_Work_Report.md`  
+  - `.cursorrules`  
+  - `.cursor/rules/*.mdc`
+- 누락된 정보:
+  - 릴리즈/마일스톤 일정, 우선순위(필수/선택), 비기능 요구의 정량 목표(응답시간 등)
+  - 정책 미결정(P1~P4: 동치 처리, 해 개수, 검증/생성 범위, 진단 수준)
+
+---
+
+## 2. Document Summary
+
+| Document | Main Content | PRD Usage | Priority |
+|---|---|---|---|
+| `Report/Problem-Definition-Report.md` | 문제 인식, Why Chain, 표면/개선 문제정의, 핵심 불변식(I1~I3/S1~S4), 훈련 목표 | Background, Problem Definition, Why now, 제품 동기 | High |
+| `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | Epic, Persona, Journey, Story, Technical Scenario, 검증 요약/갭 | Vision, User Story, AC, Gherkin, Verification Checklist | **Highest** |
+| `Report/MagicSquare_4x4_TDD_Design_Report.md` | Domain 개념, I/O 계약, 불변식, UI/Domain/Data 책임, 테스트/추적성 매트릭스 | Functional Scope, Contract, Invariant Table, Layer Boundary | **Highest** |
+| `Report/CursorRules_UserEntity_Work_Report.md` | 규칙 정비 이력, User 엔티티 예시, 테스트 실행 결과, 후속 권장 | Quality Requirements 보조 근거, Engineering Practice 사례 | Medium |
+| `.cursorrules` | 프로젝트/아키텍처/TDD/테스트/금지패턴/구조/AI행동 통합 규칙 | Engineering Principles, Constraints, Dev Method | High |
+| `.cursor/rules/magicsquare-project.mdc` | 프로젝트 목적/범위/요구 문장화 원칙 | PRD 서문의 원칙 정렬 | Medium |
+| `.cursor/rules/magicsquare-ai-behavior.mdc` | 코딩 전중후 행동 규칙, TDD/ECB 준수 | Development Method, Quality Gate | Medium |
+| `.cursor/rules/magicsquare-ecb-architecture.mdc` | ECB 역할, 의존 방향, 가드레일 | Architecture Constraints, Layer Boundary | High |
+| `.cursor/rules/magicsquare-tdd-testing.mdc` | RED-GREEN-REFACTOR, pytest/AAA/coverage | Test Strategy, Quality Requirements | High |
+| `.cursor/rules/magicsquare-python-code-style.mdc` | 타입힌트/docstring/PEP8 | Engineering Principles(코드 품질) | Low-Medium |
+| `.cursor/rules/magicsquare-forbidden.mdc` | 금지 패턴(print, hardcoded, bare except) | Constraints / Appendix 정책 | Medium |
+
+---
+
+## 3. PRD Section Mapping
+
+| PRD Section | Primary Source | Secondary Source | Content to Extract |
+|---|---|---|---|
+| Background | `Report/Problem-Definition-Report.md` | `magicsquare-project.mdc` | 문제 맥락, 왜 4x4인가, 학습/QA 맥락 |
+| Problem Definition | `Report/Problem-Definition-Report.md` | `MagicSquare_4x4_TDD_Design_Report.md` | 표면 vs 개선 문제정의, 필수/선택 범위 |
+| Why are we doing this now / Why Chain | `Report/Problem-Definition-Report.md` | `MagicSquare_4x4_Journey_Levels_1_to_5.md` | 반복 가능성, 자동검증, 규칙 기반 사고 필요성 |
+| Vision | `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | `Problem-Definition-Report.md` | 불변식 기반 훈련 시스템 목표 |
+| Epic Goal | `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | - | 학습/제품 성공 기준 |
+| Persona | `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | - | TDD 학습자/레이어 분리 학습자 |
+| User Journey | `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | - | 5-stage journey 및 pain/opportunity |
+| User Story + Acceptance Criteria | `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | `MagicSquare_4x4_TDD_Design_Report.md` | Boundary/Domain 분리 스토리와 테스트 가능 AC |
+| Gherkin Scenario | `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | `MagicSquare_4x4_TDD_Design_Report.md` | Given-When-Then 시나리오 및 레이어 연결 |
+| Verification Checklist | `Report/MagicSquare_4x4_Journey_Levels_1_to_5.md` | `magicsquare-tdd-testing.mdc` | 커버리지 갭, 보강 대상, 진행 게이트 |
+| Functional Scope | `Report/MagicSquare_4x4_TDD_Design_Report.md` | `Problem-Definition-Report.md` | 필수기능(검증) vs 선택기능(산출/저장) |
+| Input / Output Contract | `Report/MagicSquare_4x4_TDD_Design_Report.md` | `Problem-Definition-Report.md` | 입력 스키마, 출력 포맷, 오류 스키마 |
+| Invariant Table | `Report/MagicSquare_4x4_TDD_Design_Report.md` | `Problem-Definition-Report.md` | 도메인 불변식 + 시스템 품질 불변식 |
+| Domain Concept | `Report/MagicSquare_4x4_TDD_Design_Report.md` | - | Entity/VO/Domain Service 책임 |
+| Layer Boundary (Clean+ECB) | `Report/MagicSquare_4x4_TDD_Design_Report.md` | `.cursorrules`, `magicsquare-ecb-architecture.mdc` | 레이어 역할, 의존 방향, 금지 호출 |
+| Quality Requirements | `.cursorrules`, `magicsquare-tdd-testing.mdc` | `CursorRules_UserEntity_Work_Report.md` | pytest/AAA/coverage/TDD 단계/회귀 규칙 |
+| Engineering Principles / Constraints | `.cursorrules` | `*.mdc`, `CursorRules_UserEntity_Work_Report.md` | 타입힌트, 금지패턴, 상수정책, API 문서화 |
+
+---
+
+## 4. Source Priority Rules
+
+| Topic | Primary Source | Reason |
+|---|---|---|
+| 문제 정의/동기/Why Chain | `Problem-Definition-Report.md` | 가장 직접적이고 구조화된 문제정의 문서 |
+| Vision/Epic/Persona/Journey/Story/Scenario | `MagicSquare_4x4_Journey_Levels_1_to_5.md` | 사용자 흐름-검증 연결의 1차 자료 |
+| 기능 계약(I/O, 오류코드, 불변식, 도메인 책임) | `MagicSquare_4x4_TDD_Design_Report.md` | 기능 명세 수준의 계약과 테스트 추적성 제공 |
+| 개발 원칙/제약/TDD 운영 규칙 | `.cursorrules` | 팀 공통 규칙의 통합 원문 |
+| ECB 경계 상세 | `magicsquare-ecb-architecture.mdc` | 경계/의존 규칙을 명시적으로 분리 |
+| 테스트 단계/커버리지 최소치 | `magicsquare-tdd-testing.mdc` | 실행 규칙이 간결하고 충돌 적음 |
+| 스타일/금지패턴 세부 | `magicsquare-python-code-style.mdc`, `magicsquare-forbidden.mdc` | PRD 본문보다 원칙/부록에 적합 |
+| 작업 이력/실행 예시 | `CursorRules_UserEntity_Work_Report.md` | 규범 문서가 아니라 사례 문서이므로 보조 근거로 사용 |
+
+---
+
+## 5. Directly Transfer to PRD Body
+
+| Source Document | Content Type | Target PRD Section |
+|---|---|---|
+| `Problem-Definition-Report.md` | 개선된 문제정의, Why Chain 핵심 논리, 제품 동기 | Background / Problem Definition / Why now |
+| `MagicSquare_4x4_Journey_Levels_1_to_5.md` | Vision, Epic Goal, Persona, Journey, Story/AC, Verification 관점 | Vision / User Journey / Requirements & Verification |
+| `MagicSquare_4x4_TDD_Design_Report.md` | 기능 범위, 입력/출력/에러 계약, Invariant Table, Layer Boundary | Functional Scope / Contracts / Architecture |
+| `.cursorrules` | TDD 방식, pytest+AAA, 최소 coverage, 핵심 개발 원칙 | Quality Requirements / Development Method |
+| `magicsquare-ecb-architecture.mdc` | boundary-control-entity 의존 규칙 | Architecture Constraints |
+
+---
+
+## 6. Move to Appendix or Engineering Principles
+
+| Source Document | Content Type | Target Appendix / Section |
+|---|---|---|
+| `.cursorrules` | 파일 구조 예시, fixture scope 상세, ai_behavior 세부 문장 | Appendix A: Engineering Rules |
+| `magicsquare-python-code-style.mdc` | PEP8/88자/docstring 세칙 | Engineering Principles (간단 요약) + Appendix 상세 |
+| `magicsquare-forbidden.mdc` | 금지 패턴별 사유/대안 | Appendix B: Prohibited Patterns |
+| `magicsquare-ai-behavior.mdc` | 코딩 전중후 AI 작업 절차 | Appendix C: Dev Workflow Guardrails |
+| `CursorRules_UserEntity_Work_Report.md` | User 엔티티 구현 이력, 테스트 실행 로그 | Appendix D: Reference Implementation Notes |
+| `MagicSquare_4x4_TDD_Design_Report.md` | 세부 테스트 ID 테이블/Traceability matrix 원문 | Appendix E: Detailed Traceability Matrix |
+
+---
+
+## 7. Conflicts / Ambiguities
+
+| Issue | Related Document | Decision Needed |
+|---|---|---|
+| 보고서 파일명 불일치(요청명 vs 실제 파일명) | 요청 목록 전체 | PRD에 사용할 공식 참조명 확정 필요 |
+| 핵심 기능 범위: “검증 필수 + 산출 선택” 해석 | `Problem-Definition-Report.md`, `TDD_Design_Report.md` | MVP에서 산출 기능 포함 여부 결정 |
+| 회전/반사 동치 처리 정책(P1) | `Problem-Definition-Report.md` | 동치 해를 동일 해로 볼지 결정 |
+| “유효 해 하나” vs “전체 나열”(P2) | `Problem-Definition-Report.md` | 출력 목표와 성능/학습목표 정렬 필요 |
+| 오류 응답 수준: pass/fail만 vs 진단 상세(P4) | `Problem-Definition-Report.md`, `TDD_Design_Report.md` | UX/테스트 용이성 기준으로 결정 |
+| Story 대비 Scenario 커버리지 갭 | `Journey_Levels_1_to_5.md` | 누락 시나리오를 PRD 범위에 포함할지 결정 |
+| coverage 목표 수치(80 최소 vs 레이어별 95/85/80) | `.cursorrules`, `TDD_Design_Report.md`, `Journey` | PRD의 공식 품질 KPI 수치 통일 필요 |
+
+---
+
+## 8. Recommended PRD Outline
+
+1. Product Overview  
+2. Background & Problem Definition  
+3. Why Now (Why Chain)  
+4. Vision & Epic Goal  
+5. Personas and User Journey  
+6. User Stories and Acceptance Criteria  
+7. Gherkin Scenarios (Dual-Track: Boundary/Domain)  
+8. Functional Scope (In/Out of Scope)  
+9. Domain Concepts and Invariant Table  
+10. Input/Output/Error Contracts  
+11. Architecture Principles (Clean Architecture + ECB Boundaries)  
+12. Quality Requirements (TDD, pytest/AAA, coverage, regression gates)  
+13. Verification Checklist (Requirements ↔ Tests Traceability)  
+14. Risks, Open Questions, and Policy Decisions (P1~P4)  
+15. Appendices  
+   - A. Engineering Rules Summary (`.cursorrules`, `.mdc`)  
+   - B. Detailed Traceability Matrix  
+   - C. Prohibited Patterns & Coding Constraints  
+   - D. Reference Notes from prior work reports
+
+원하시면 다음 단계에서 이 매핑을 기준으로 **PRD 본문 초안(섹션별 1차 작성본)**을 바로 작성하겠습니다.
+
+---
+
+**User**
+
+당신은 Senior Product/Software Architect이며,
+Dual-Track UI + Logic TDD, Clean Architecture, ECB, Concept-to-Code Traceability 전문가입니다.
+
+목표:
+Magic Square 4x4 프로젝트를 구현하기 전에 사용할 PRD를 작성합니다.
+
+이 PRD는 단순한 기능 설명서가 아니라,
+불변식 기반 사고 훈련, 입력/출력 계약 고정, Boundary/Domain 분리,
+RED-GREEN-REFACTOR 흐름, Traceability를 보장하는 구현 전 기준 문서입니다.
+
+중요:
+- 구현 코드를 작성하지 마십시오.
+- 테스트 코드를 작성하지 마십시오.
+- 새로운 기능을 추가하지 마십시오.
+- 요구사항 범위를 임의로 확장하지 마십시오.
+- 모호한 표현을 사용하지 마십시오.
+예: “적절히”, “충분히”, “잘 처리한다”, “필요 시”
+- 모든 요구사항은 테스트 가능하고 검증 가능한 문장으로 작성하십시오.
+- Dual-Track 구조를 반드시 반영하십시오.
+- Track A: Boundary / UI Contract
+- Track B: Domain / Logic Invariant
+- Concept → Rule → Use Case → Contract → Test → Component 추적성을 반드시 포함하십시오.
+- 출력은 구조화된 Markdown으로 작성하십시오.
+- 저수준 구현 상세는 작성하지 말고, PRD 수준의 계약, 요구사항, 검증 기준만 작성하십시오.
+
+파일 생성 지시:
+- 지금은 실제 파일을 생성하지 마십시오.
+- 최종 출력은 나중에 `docs/PRD_MagicSquare.md`로 저장할 수 있는 Markdown 본문으로만 작성하십시오.
+
+------------------------------------------------------------
+[참고 문서 사용 규칙]
+------------------------------------------------------------
+
+다음 문서를 PRD 작성의 근거로 사용한다고 가정하십시오.
+
+1. Report/1.ProblemDefinition_Report.md
+- PRD의 Background
+- Problem Definition
+- Why are we doing this now
+- Why Chain
+- 제품 동기
+- 사용자가 겪는 불편
+- 무엇을 닫아야 하는가
+
+2. Report/4.UserJourney_Epic_to_TechnicalScenario_Report.md
+- PRD의 Vision
+- Epic Goal
+- Persona
+- User Journey
+- User Story
+- Acceptance Criteria
+- Gherkin Scenario
+- Verification Checklist
+- Requirements와 Verification을 정리할 때 가장 중요한 1차 자료
+
+3. Report/2.CleanArchitecture_DualTrack_TDD_Design_Report.md
+- PRD의 Functional Scope
+- Input / Output Contract
+- Invariant Table
+- Domain Concept
+- Layer Boundary
+- 사용자에게 보장할 동작
+- 기능 명세 수준의 계약
+
+4. Report/3.DevelopmentEnvironment_CursorRules_ECB_UserEntity_Report.md
+- PRD의 Quality Requirements
+- Development Method
+- Engineering Principles
+- Constraints
+- ECB
+- TDD 단계
+- pytest / coverage
+- prohibited patterns
+
+5. .cursorrules 및 .cursor/rules/*.mdc
+- 팀이 따라야 할 상세 개발 규칙 원문
+- PRD의 Engineering Principles 또는 Appendix에 요약 반영
+
+문서 우선순위:
+- 요구사항과 검증 기준은 Report/4를 우선 출처로 삼으십시오.
+- 문제 정의와 동기는 Report/1을 우선 출처로 삼으십시오.
+- 기능 계약, 입력/출력, 불변식, 계층 경계는 Report/2를 우선 출처로 삼으십시오.
+- 품질 기준, 개발 방식, 금지 규칙은 Report/3과 Cursor Rules를 우선 출처로 삼으십시오.
+- 문서 간 충돌이 있으면 임의로 해결하지 말고 “Decision Needed”로 표시하십시오.
+
+------------------------------------------------------------
+[프로젝트 개요]
+------------------------------------------------------------
+
+Project:
+Magic Square 4x4 — TDD Practice
+
+Purpose:
+- 알고리즘 난이도보다 TDD 훈련이 목표이다.
+- 불변식 기반 설계/검증 사고를 훈련한다.
+- 입력/출력 계약을 명확히 고정한다.
+- UI, DB, Web 의존성 없이 순수 로직 기반으로 구현 가능한 PRD를 만든다.
+- Boundary와 Domain을 분리하여 Dual-Track UI + Logic TDD를 적용한다.
+
+------------------------------------------------------------
+[고정 입력/출력 계약]
+------------------------------------------------------------
+
+Input:
+- 4x4 integer matrix `int[][]`
+- `0`은 빈칸이다.
+- 빈칸 `0`은 정확히 2개여야 한다.
+- 유효한 값은 `0` 또는 `1~16`이다.
+- `0`을 제외한 숫자는 중복될 수 없다.
+- 첫 번째 빈칸의 정의:
+- row-major 순서, 즉 행 우선으로 스캔했을 때 처음 발견되는 `0`
+
+Output:
+- `int[6]`
+- 좌표는 1-index 기준이다.
+- 출력 형식은 `[r1, c1, n1, r2, c2, n2]`이다.
+- `n1`, `n2`는 누락된 두 숫자이다.
+
+Solving Order:
+- Attempt 1:
+- 작은 누락 숫자 → 첫 번째 빈칸
+- 큰 누락 숫자 → 두 번째 빈칸
+- 이 조합이 마방진이면 해당 순서로 반환한다.
+- Attempt 2:
+- Attempt 1이 실패하면 반대 조합을 시도한다.
+- 큰 누락 숫자 → 첫 번째 빈칸
+- 작은 누락 숫자 → 두 번째 빈칸
+- 이 조합이 마방진이면 반대 순서로 반환한다.
+- 두 조합 모두 실패하는 경우:
+- PRD는 실패 정책을 반드시 하나로 확정해야 한다.
+- 정의된 실패 응답을 반환할지, 정의된 예외를 발생시킬지 명시한다.
+- 미정 상태로 남기지 않는다.
+
+Magic Constant:
+- `n=4`의 마방진 상수는 `34`이다.
+
+------------------------------------------------------------
+[PRD 작성 구조]
+------------------------------------------------------------
+
+아래 구조를 반드시 따르십시오.
+
+# PRD — Magic Square 4x4 TDD Practice
+
+## 1. Executive Summary
+- 한 문단 요약
+- 이 프로젝트가 훈련하려는 핵심 역량:
+- 불변식 사고
+- 입력/출력 계약
+- Dual-Track TDD
+- 설계 → 테스트 → 구현 → 리팩토링 흐름
+
+## 2. Background
+- Report/1의 문제 배경을 반영
+- 왜 단순 마방진 풀이가 아니라 TDD 훈련 프로젝트인지 설명
+
+## 3. Problem Statement
+- “마방진을 만든다”가 아니라
+“검증 가능한 불변식 조건을 완성한다”는 관점으로 정의
+- 입력/출력 계약이 왜 핵심인지 설명
+
+## 4. Why Now / Why Chain
+- 왜 지금 이 프로젝트를 해야 하는지 설명
+- 학습자가 겪는 문제:
+- 구현 먼저 시작함
+- 테스트 기준이 불명확함
+- Boundary와 Domain 책임이 섞임
+- 리팩토링 후 계약이 깨짐
+
+## 5. Target Users
+- TDD 학습자
+- 코드 리뷰어
+- Clean Architecture와 ECB를 훈련하는 개발자
+- 사용 환경:
+- 콘솔 실행 또는 테스트 실행 중심
+- 실제 UI/DB/Web은 범위 밖
+
+## 6. Vision & Epic Goal
+- Epic:
+“불변식 기반 사고 훈련 시스템 구축”
+- Report/4의 Epic과 User Journey를 반영
+
+## 7. Persona
+- TDD를 학습 중인 개발자
+- Clean Architecture 계층 분리를 이해하려는 학습자
+- 알고리즘 정답보다 설계, 계약, 테스트, 리팩토링 흐름을 훈련하려는 사용자
+
+## 8. User Journey Summary
+- 문제 인식
+- 계약 정의
+- 도메인 분리
+- Dual-Track TDD 진행
+- 회귀 보호
+- 각 단계마다 Pain Point와 Learning Outcome을 요약
+
+## 9. Scope
+
+### 9.1 In-Scope
+- 빈칸 좌표 탐색
+- 누락 숫자 탐색
+- 마방진 판정
+- 두 조합 시도 후 결과 반환
+- Boundary 계층의 입력 검증
+- 출력 계약 검증
+- RED-GREEN-REFACTOR 흐름에 맞춘 테스트 가능성
+
+### 9.2 Out-of-Scope
+- UI 화면 개발
+- DB 저장/검색
+- Web/API 서버 개발
+- N×N 일반화
+- 완전한 마방진 생성 알고리즘
+- 사용자 인증/권한
+- 네트워크 오류 처리
+- QR 스캔
+- 외부 서비스 연동
+
+## 10. Functional Requirements
+
+다음 템플릿을 각 기능마다 반복하십시오.
+
+### FR-XX 기능명
+- Description:
+- Layer:
+- Input:
+- Processing Rules:
+- Output:
+- Acceptance Criteria:
+- Error / Exception Policy:
+- Related Business Rules:
+- Related Test Direction:
+- Component Candidate:
+
+필수 기능 목록:
+- FR-01 Input Verification, Boundary
+- FR-02 Blank Coordinate Discovery
+- FR-03 Missing Number Discovery
+- FR-04 Magic Square Validation
+- FR-05 Two-Combination Solver and Result Formatting
+
+## 11. Business Rules / Domain Rules
+
+BR-01부터 번호를 부여하십시오.
+각 규칙은 “항상 참이어야 하는 규칙”으로 작성하십시오.
+
+반드시 포함:
+- 4x4 입력 규칙
+- 빈칸 2개 규칙
+- 값 범위 규칙
+- 중복 금지 규칙
+- row-major 첫 번째 빈칸 규칙
+- 누락 숫자 2개 규칙
+- 누락 숫자 오름차순 규칙
+- 마방진 상수 34 규칙
+- 행/열/대각선 합 규칙
+- 1-index 출력 좌표 규칙
+- int[6] 출력 형식 규칙
+
+## 12. Input / Output Contract
+
+입력 계약과 출력 계약을 표로 작성하십시오.
+
+포함:
+- Field / Item
+- Type
+- Rule
+- Valid Example
+- Invalid Example
+- Related Error Code 또는 Failure Policy
+
+## 13. Error / Failure Policy
+
+다음 실패 정책을 명확히 정의하십시오.
+
+- 4x4가 아닌 입력
+- 빈칸 개수가 2개가 아닌 입력
+- 값 범위 위반
+- 0을 제외한 중복 숫자
+- 두 조합 모두 마방진을 만들지 못하는 경우
+
+각 항목에 대해 다음을 작성하십시오.
+- Error Code
+- Message
+- Layer
+- Domain resolver 호출 여부
+- Related Acceptance Criteria
+
+주의:
+- 입력 검증 실패 시 Domain resolver는 호출되지 않아야 합니다.
+
+## 14. Non-Functional Requirements
+
+반드시 포함:
+- Domain Logic test coverage: 95%+
+- Boundary Validation coverage: 85%+
+- Deterministic execution:
+- 같은 입력은 항상 같은 출력을 반환해야 한다.
+- No side effects:
+- 입력 행렬 변경 여부 정책을 명시해야 한다.
+- Performance:
+- 4x4 기준 즉시 처리 가능해야 한다.
+- 예: 단일 실행 50ms 이내
+- Maintainability:
+- Boundary와 Domain 책임 분리
+- 하드코딩 금지
+- 설명 없는 매직 넘버 금지
+- 명명된 상수 사용
+
+## 15. Dual-Track TDD Strategy
+
+### 15.1 Track A — Boundary / UI Contract TDD
+- 입력 검증 테스트
+- 출력 형식 테스트
+- 실패 응답 테스트
+- Domain resolver 미호출 테스트
+
+### 15.2 Track B — Domain / Logic TDD
+- 빈칸 탐색 테스트
+- 누락 숫자 탐색 테스트
+- 마방진 검증 테스트
+- small-first 성공 테스트
+- small-first 실패 후 reverse 성공 테스트
+- 두 조합 모두 실패 테스트
+
+### 15.3 Parallel Progression Rules
+- UI RED와 Logic RED를 분리한다.
+- UI GREEN과 Logic GREEN을 각각 최소 구현으로 처리한다.
+- REFACTOR 단계에서만 구조 개선을 수행한다.
+- 모든 Domain을 먼저 구현하고 나중에 Boundary를 붙이는 방식을 금지한다.
+- 테스트를 약화하거나 삭제해서 통과시키는 것을 금지한다.
+
+## 16. Test Plan / QA
+
+다음을 포함하십시오.
+
+### 16.1 Normal Scenarios
+- small-first 성공
+- small-first 실패 후 reverse 성공
+
+### 16.2 Exception Scenarios
+- 4x4가 아닌 입력
+- 빈칸 개수 오류
+- 값 범위 오류
+- 중복 숫자 오류
+- 두 조합 모두 실패
+
+### 16.3 Boundary Scenarios
+- 최소값 1
+- 최대값 16
+- 0은 빈칸으로만 처리
+- 출력 좌표 1-index
+- 반환 배열 길이 6
+
+### 16.4 Representative Test Data
+- small-first 성공 행렬
+- reverse 성공 행렬
+- invalid size 행렬
+- invalid blank count 행렬
+- duplicate value 행렬
+- invalid range 행렬
+
+## 17. Architecture Overview, High-Level
+
+포함:
+- Boundary Layer:
+- 입력 검증
+- 오류 응답
+- 출력 포맷 변환
+- Domain Layer:
+- 순수 마방진 로직
+- 불변식 검증
+- Control / Application Layer:
+- Boundary와 Domain 흐름 조정
+- 필요 시만 포함
+
+의존 방향:
+- Boundary → Control → Domain
+- Domain은 Boundary를 몰라야 한다.
+- Domain은 UI, DB, Web, 파일 시스템에 의존하지 않아야 한다.
+
+## 18. Component Candidates
+
+다음 후보 컴포넌트를 표로 작성하십시오.
+
+- BoundaryValidator
+- BlankFinder
+- MissingNumberFinder
+- MagicSquareValidator
+- Solver
+- ResultFormatter
+
+각 컴포넌트에 대해:
+- Responsibility
+- Layer
+- Input
+- Output
+- Related FR
+- Related Test
+
+## 19. Risks & Ambiguities
+
+다음을 포함하십시오.
+
+- 1-index와 0-index 혼동
+- row-major 첫 번째 빈칸 정의 누락
+- small-first 성공과 reverse 성공 테스트 데이터 혼동
+- 입력 행렬 변경 여부 불명확
+- 두 조합 모두 실패할 때의 정책 누락
+- 34 상수 하드코딩 위험
+- Boundary와 Domain 책임 혼합
+
+각 항목에 대해:
+- Risk
+- Impact
+- Decision / Mitigation
+
+## 20. Engineering Principles
+
+Report/3과 Cursor Rules를 요약 반영하십시오.
+
+포함:
+- PEP8
+- type hints
+- pytest
+- AAA pattern
+- coverage goals
+- ECB layer separation
+- RED-GREEN-REFACTOR
+- print() debugging 금지
+- bare except 금지
+- 테스트 약화 금지
+- 설명 없는 magic number 금지
+
+## 21. Traceability Matrix
+
+다음 형식의 표를 반드시 작성하십시오.
+
+| Concept / Invariant | Business Rule | Feature ID | Acceptance Criteria | Test Case Candidate | Component |
+|---|---|---|---|---|---|
+
+반드시 포함할 Concept / Invariant:
+- 4x4 입력
+- 빈칸 2개
+- 값 범위 0 또는 1~16
+- 중복 금지
+- row-major 첫 번째 빈칸
+- 누락 숫자 2개
+- 누락 숫자 오름차순
+- 마방진 상수 34
+- 행/열/대각선 합
+- small-first 시도
+- reverse 시도
+- int[6] 반환
+- 1-index 좌표
+
+## 22. Open Questions / Decision Needed
+
+아직 문서 간 충돌이나 확정되지 않은 내용이 있으면 이 섹션에 모으십시오.
+확정할 수 없는 내용을 본문 요구사항처럼 쓰지 마십시오.
+
+## 23. Appendix
+
+포함:
+- 참고 문서 목록
+- Cursor Rules 요약
+- 대표 Gherkin Scenario 요약
+- 향후 RED Test ID 후보
+
+------------------------------------------------------------
+[출력 요구사항]
+------------------------------------------------------------
+
+- 전체를 Markdown으로 출력하십시오.
+- 번호와 ID 체계를 일관되게 유지하십시오.
+- 구현 코드를 작성하지 마십시오.
+- 테스트 코드를 작성하지 마십시오.
+- 모든 요구사항은 검증 가능한 문장으로 작성하십시오.
+- PRD 본문에 포함한 각 주요 요구사항은 Traceability Matrix에 연결하십시오.
+- 모호하거나 충돌되는 내용은 “Decision Needed”로 표시하십시오.
+
+---
+
+**Cursor**
+
+# PRD — Magic Square 4x4 TDD Practice
+
+## 1. Executive Summary
+Magic Square 4x4 프로젝트의 목표는 정답 탐색 자체가 아니라, 불변식 기반 사고와 계약 기반 개발을 훈련 가능한 방식으로 고정하는 것이다. 본 PRD는 구현 이전 기준 문서로서 입력/출력 계약, Boundary/Domain 분리, Dual-Track UI + Logic TDD, RED-GREEN-REFACTOR 절차, 그리고 Concept-to-Code Traceability를 명시한다. 모든 요구사항은 테스트 가능한 문장으로 정의하며, 본 문서의 요구사항 위반은 구현 완료 기준 미달로 판정한다.
+
+---
+
+## 2. Background
+학습자는 마방진 문제를 풀 때 구현을 먼저 시작하고, 이후 테스트를 덧붙이는 방식으로 진행하는 경향이 있다. 이 접근은 판정 기준이 고정되지 않아 회귀 검증이 불가능해지고, Boundary와 Domain 책임이 혼합되어 변경 비용이 증가한다.  
+본 프로젝트는 4x4 마방진을 대상으로 요구-계약-검증의 연결을 먼저 확정한다. 프로젝트는 UI/DB/Web 의존 없이 순수 로직 중심으로 진행하며, 테스트가 설계를 구속하는 방식으로 품질을 유지한다.
+
+---
+
+## 3. Problem Statement
+문제는 “마방진을 만든다”가 아니다. 문제는 “4x4 입력에 대해 불변식을 판정하고, 판정 가능한 계약 결과를 일관되게 반환한다”이다.  
+핵심은 다음 두 가지다.
+
+1. 입력 계약 고정: 어떤 입력이 유효하고 어떤 입력이 거부되는지 사전에 고정한다.  
+2. 출력 계약 고정: 어떤 순서와 형식으로 결과를 반환하며 어떤 실패 코드를 반환하는지 사전에 고정한다.
+
+이 프로젝트는 완성된 격자 한 장을 목표로 하지 않고, **검증 가능한 기준의 재현성**을 목표로 한다.
+
+---
+
+## 4. Why Now / Why Chain
+현재 학습 흐름에서 반복적으로 발생하는 문제는 다음과 같다.
+
+- 구현 먼저 시작하여 테스트가 요구사항을 추적하지 못한다.
+- 테스트 기준이 불명확하여 동일 입력의 기대 결과가 고정되지 않는다.
+- Boundary와 Domain 책임이 섞여 리팩토링 시 계약이 손상된다.
+- 리팩토링 이후 출력 형식과 오류 정책이 변경되어 회귀가 발생한다.
+
+지금 이 프로젝트를 수행해야 하는 이유는 다음과 같다.
+
+- 불변식(합 34, 값 집합, 구조 규칙)을 먼저 문서화하면 요구사항이 측정 가능해진다.
+- 계약 기반 TDD를 적용하면 실패 원인과 수정 범위를 분리할 수 있다.
+- Dual-Track 방식으로 UI 계약과 Domain 규칙을 병렬 관리하면 구조적 혼합을 방지할 수 있다.
+
+---
+
+## 5. Target Users
+- TDD 학습자
+- 코드 리뷰어
+- Clean Architecture + ECB 분리를 훈련하는 개발자
+
+사용 환경:
+- 콘솔 실행 또는 테스트 실행 중심
+- 실제 UI 화면, DB, Web/API 서버는 범위 밖
+
+---
+
+## 6. Vision & Epic Goal
+**Vision:** 불변식 기반 사고를 실천 가능한 개발 습관으로 고정한다.  
+**Epic Goal:** “불변식 기반 사고 훈련 시스템 구축”
+
+Epic 성공 기준:
+- Domain 규칙과 Boundary 계약이 분리된 상태로 유지된다.
+- 핵심 불변식마다 검증 경로가 존재한다.
+- 리팩토링 이후 외부 계약이 변경되지 않는다.
+- Traceability(Concept → Rule → Use Case → Contract → Test → Component)가 문서에서 확인 가능하다.
+
+---
+
+## 7. Persona
+### Persona A — TDD 학습 개발자
+- 목표: 실패 테스트로 요구사항을 고정하고 최소 구현으로 통과시킨다.
+- 어려움: 구현 선행으로 인해 Red 단계가 생략된다.
+
+### Persona B — 아키텍처 분리 학습자
+- 목표: Boundary와 Domain 책임을 분리한다.
+- 어려움: 입력 검증과 도메인 판단 로직이 혼합된다.
+
+### Persona C — 리뷰 중심 개발자
+- 목표: 계약 위반을 빠르게 식별한다.
+- 어려움: 요구사항 문서와 테스트 간 연결이 약하다.
+
+---
+
+## 8. User Journey Summary
+
+| Stage | Pain Point | Learning Outcome |
+|---|---|---|
+| 문제 인식 | “정답 찾기”와 “검증 시스템 구축”이 혼합됨 | 프로젝트 목표를 검증 가능성으로 재정의 |
+| 계약 정의 | 입력/출력/오류 형식이 합의되지 않음 | 고정 계약과 실패 정책을 명시 |
+| 도메인 분리 | Boundary 검증과 Domain 판단이 섞임 | 레이어 책임과 의존 방향 고정 |
+| Dual-Track TDD 진행 | UI 테스트와 로직 테스트가 순차적으로 밀림 | Track A/Track B 병렬 Red-Green 적용 |
+| 회귀 보호 | 리팩토링 후 외부 계약이 변형됨 | 계약 테스트와 불변식 테스트로 회귀 차단 |
+
+---
+
+## 9. Scope
+
+### 9.1 In-Scope
+- 빈칸 좌표 탐색
+- 누락 숫자 탐색
+- 마방진 판정
+- 두 조합 시도 후 결과 반환
+- Boundary 계층 입력 검증
+- 출력 계약 검증
+- RED-GREEN-REFACTOR에 맞춘 테스트 가능 요구사항 정의
+
+### 9.2 Out-of-Scope
+- UI 화면 개발
+- DB 저장/검색
+- Web/API 서버 개발
+- N×N 일반화
+- 완전한 마방진 생성 알고리즘
+- 사용자 인증/권한
+- 네트워크 오류 처리
+- QR 스캔
+- 외부 서비스 연동
+
+---
+
+## 10. Functional Requirements
+
+### FR-01 Input Verification (Boundary)
+- Description: Boundary는 입력 행렬 계약을 검증한다.
+- Layer: Boundary
+- Input: `int[][] matrix`
+- Processing Rules:
+  - 행렬 크기는 4x4여야 한다.
+  - `0`의 개수는 정확히 2개여야 한다.
+  - 값은 `0` 또는 `1~16`이어야 한다.
+  - `0`을 제외한 값은 중복되면 안 된다.
+- Output:
+  - 성공: 검증 통과 상태
+  - 실패: 정의된 오류 코드와 메시지
+- Acceptance Criteria:
+  - AC-FR01-01: 4x4가 아닌 입력은 `ERR_INVALID_SIZE`를 반환한다.
+  - AC-FR01-02: 빈칸 개수가 2개가 아니면 `ERR_INVALID_BLANK_COUNT`를 반환한다.
+  - AC-FR01-03: 범위 위반 값이 있으면 `ERR_OUT_OF_RANGE`를 반환한다.
+  - AC-FR01-04: 0 제외 중복 값이 있으면 `ERR_DUPLICATE_NON_ZERO`를 반환한다.
+  - AC-FR01-05: FR-01 실패 시 Domain resolver를 호출하지 않는다.
+- Error / Exception Policy: Boundary 오류 응답 반환
+- Related Business Rules: BR-01, BR-02, BR-03, BR-04
+- Related Test Direction: 계약 기반 입력 거부 테스트, resolver 미호출 테스트
+- Component Candidate: `BoundaryValidator`
+
+### FR-02 Blank Coordinate Discovery
+- Description: Domain은 두 개의 빈칸 좌표를 row-major 순서로 탐색한다.
+- Layer: Domain
+- Input: FR-01 통과 행렬
+- Processing Rules:
+  - 0 위치 두 개를 탐색한다.
+  - 좌표 순서는 row-major를 따른다.
+- Output: `(r1, c1), (r2, c2)` (내부 표현)
+- Acceptance Criteria:
+  - AC-FR02-01: 첫 번째 좌표는 row-major 기준 첫 번째 0의 위치다.
+  - AC-FR02-02: 두 번째 좌표는 row-major 기준 두 번째 0의 위치다.
+- Error / Exception Policy: FR-01 사전 검증 전제
+- Related Business Rules: BR-05
+- Related Test Direction: 좌표 순서 결정성 테스트
+- Component Candidate: `BlankFinder`
+
+### FR-03 Missing Number Discovery
+- Description: Domain은 누락된 숫자 2개를 계산하고 오름차순으로 반환한다.
+- Layer: Domain
+- Input: FR-01 통과 행렬
+- Processing Rules:
+  - 기준 집합은 `{1..16}`이다.
+  - 입력 비영(0 제외) 집합의 보완집합을 계산한다.
+  - 결과는 오름차순으로 정렬한다.
+- Output: `small, large`
+- Acceptance Criteria:
+  - AC-FR03-01: 누락 숫자는 정확히 2개다.
+  - AC-FR03-02: 반환 순서는 오름차순이다.
+- Error / Exception Policy: FR-01 사전 검증 전제
+- Related Business Rules: BR-06, BR-07
+- Related Test Direction: 누락 숫자 계산 및 정렬 테스트
+- Component Candidate: `MissingNumberFinder`
+
+### FR-04 Magic Square Validation
+- Description: Domain은 완성 후보가 마방진 불변식을 만족하는지 판정한다.
+- Layer: Domain
+- Input: 0이 없는 4x4 후보 행렬
+- Processing Rules:
+  - 모든 행 합은 34여야 한다.
+  - 모든 열 합은 34여야 한다.
+  - 두 대각선 합은 34여야 한다.
+- Output: `true | false`
+- Acceptance Criteria:
+  - AC-FR04-01: 조건 만족 시 `true`를 반환한다.
+  - AC-FR04-02: 하나라도 위반 시 `false`를 반환한다.
+- Error / Exception Policy: 판정 결과 boolean 반환
+- Related Business Rules: BR-08, BR-09
+- Related Test Direction: 합 규칙 만족/위반 판정 테스트
+- Component Candidate: `MagicSquareValidator`
+
+### FR-05 Two-Combination Solver and Result Formatting
+- Description: Domain은 두 조합을 순서대로 시도하고 성공 조합을 반환 형식으로 고정한다.
+- Layer: Domain + Boundary Formatting
+- Input: FR-01 통과 행렬
+- Processing Rules:
+  - Attempt 1: `small -> blank1`, `large -> blank2`
+  - Attempt 2: Attempt 1 실패 시 `large -> blank1`, `small -> blank2`
+  - 성공한 첫 조합의 순서로 결과를 구성한다.
+- Output:
+  - 성공: `int[6] = [r1, c1, n1, r2, c2, n2]` (1-index)
+  - 실패: `ERR_UNSOLVABLE`
+- Acceptance Criteria:
+  - AC-FR05-01: Attempt 1 성공 시 Attempt 1 순서 결과를 반환한다.
+  - AC-FR05-02: Attempt 1 실패, Attempt 2 성공 시 Attempt 2 순서 결과를 반환한다.
+  - AC-FR05-03: 두 조합 모두 실패 시 `ERR_UNSOLVABLE`를 반환한다.
+  - AC-FR05-04: 성공 결과 길이는 6이고 좌표는 1-index다.
+- Error / Exception Policy:
+  - **확정 정책:** 실패는 예외 throw가 아니라 표준 오류 응답(`ERR_UNSOLVABLE`)으로 반환한다.
+- Related Business Rules: BR-10, BR-11, BR-12, BR-13
+- Related Test Direction: 조합 우선순위, 실패 정책, 출력 포맷 테스트
+- Component Candidate: `Solver`, `ResultFormatter`
+
+---
+
+## 11. Business Rules / Domain Rules
+
+- **BR-01:** 입력 행렬은 항상 4행 4열이어야 한다.
+- **BR-02:** 입력 내 값 `0`의 개수는 항상 2개여야 한다.
+- **BR-03:** 각 셀 값은 항상 `0` 또는 `1~16`이어야 한다.
+- **BR-04:** `0`을 제외한 숫자는 항상 중복되면 안 된다.
+- **BR-05:** 첫 번째 빈칸은 항상 row-major 순서에서 첫 번째 `0`의 좌표다.
+- **BR-06:** 누락 숫자는 항상 정확히 2개여야 한다.
+- **BR-07:** 누락 숫자 반환 순서는 항상 오름차순이어야 한다.
+- **BR-08:** 마방진 상수는 항상 `34`다.
+- **BR-09:** 완성 후보는 모든 행/열/대각선 합이 항상 `34`여야 한다.
+- **BR-10:** Solver는 항상 Attempt 1을 먼저 평가해야 한다.
+- **BR-11:** Attempt 1 실패 시 Solver는 항상 Attempt 2를 평가해야 한다.
+- **BR-12:** 성공 출력 좌표는 항상 1-index여야 한다.
+- **BR-13:** 성공 출력 형식은 항상 `int[6]`이며 `[r1,c1,n1,r2,c2,n2]` 순서를 유지해야 한다.
+
+---
+
+## 12. Input / Output Contract
+
+### 12.1 Input Contract
+
+| Field / Item | Type | Rule | Valid Example | Invalid Example | Related Error Code 또는 Failure Policy |
+|---|---|---|---|---|---|
+| matrix | `int[][]` | 크기 4x4 고정 | `[[16,2,0,13],[5,11,10,8],[9,7,6,0],[4,14,15,1]]` | `[[1,2],[3,4]]` | `ERR_INVALID_SIZE` |
+| blank count | derived | `0` 개수는 2 | 위 valid 예시에서 `0` 2개 | `0`이 1개 또는 3개 | `ERR_INVALID_BLANK_COUNT` |
+| value range | each cell | 값은 `0` 또는 `1~16` | `0`, `1`, `16` | `-1`, `17` | `ERR_OUT_OF_RANGE` |
+| non-zero uniqueness | derived | `0` 제외 값 중복 금지 | 비영 값 모두 유일 | `5`가 두 번 등장 | `ERR_DUPLICATE_NON_ZERO` |
+| first blank definition | derived | row-major 첫 번째 `0` | (1,3)이 첫 `0` | 임의 순서 선택 | 계약 위반(테스트 실패) |
+
+### 12.2 Output Contract
+
+| Field / Item | Type | Rule | Valid Example | Invalid Example | Related Error Code 또는 Failure Policy |
+|---|---|---|---|---|---|
+| result | `int[6]` | 길이 6 고정 | `[1,3,3,3,4,12]` | `[1,3,3]` | 계약 위반(테스트 실패) |
+| coordinate index | `int` | 좌표는 1-index | `r=1,c=4` | `r=0,c=3` | 계약 위반(테스트 실패) |
+| ordering | tuple order | `[r1,c1,n1,r2,c2,n2]` | `[1,1,16,4,4,1]` | `[n1,r1,c1,n2,r2,c2]` | 계약 위반(테스트 실패) |
+| failure response | error object | 실패 시 표준 오류 코드 반환 | `{code:"ERR_UNSOLVABLE",...}` | 빈 배열 반환 | `ERR_UNSOLVABLE` |
+
+---
+
+## 13. Error / Failure Policy
+
+| Case | Error Code | Message | Layer | Domain resolver 호출 여부 | Related Acceptance Criteria |
+|---|---|---|---|---|---|
+| 4x4 아님 | `ERR_INVALID_SIZE` | 입력 오류: 행렬 크기는 4x4여야 합니다. | Boundary | 호출 금지 | AC-FR01-01, AC-FR01-05 |
+| 빈칸 개수 오류 | `ERR_INVALID_BLANK_COUNT` | 입력 오류: 빈칸(0)은 정확히 2개여야 합니다. | Boundary | 호출 금지 | AC-FR01-02, AC-FR01-05 |
+| 값 범위 위반 | `ERR_OUT_OF_RANGE` | 입력 오류: 값은 0 또는 1~16이어야 합니다. | Boundary | 호출 금지 | AC-FR01-03, AC-FR01-05 |
+| 0 제외 중복 | `ERR_DUPLICATE_NON_ZERO` | 입력 오류: 0을 제외한 숫자는 중복될 수 없습니다. | Boundary | 호출 금지 | AC-FR01-04, AC-FR01-05 |
+| 두 조합 모두 실패 | `ERR_UNSOLVABLE` | 도메인 오류: 주어진 조건으로 마방진을 완성할 수 없습니다. | Domain 결과를 Boundary가 표준화 | 호출 필요(검증 통과 후) | AC-FR05-03 |
+
+**정책 확정:** 입력 검증 실패는 Boundary에서 종료한다. Domain resolver는 호출하지 않는다.
+
+---
+
+## 14. Non-Functional Requirements
+
+- **NFR-01 Coverage (Domain):** Domain Logic 테스트 커버리지는 95% 이상이어야 한다.
+- **NFR-02 Coverage (Boundary):** Boundary Validation 테스트 커버리지는 85% 이상이어야 한다.
+- **NFR-03 Coverage (Project Gate):** 전체 프로젝트 커버리지는 80% 이상이어야 한다.
+- **NFR-04 Determinism:** 동일 입력은 항상 동일 출력 또는 동일 오류 코드를 반환해야 한다.
+- **NFR-05 No Side Effects:** 입력 행렬은 처리 전후 동일해야 하며 함수 외부 상태를 변경하면 안 된다.
+- **NFR-06 Performance:** 4x4 단일 실행은 50ms 이내에 완료되어야 한다.
+- **NFR-07 Maintainability:** Boundary와 Domain 책임을 분리해야 한다.
+- **NFR-08 Maintainability:** 설명 없는 매직 넘버를 금지하고 명명된 상수를 사용해야 한다.
+
+---
+
+## 15. Dual-Track TDD Strategy
+
+### 15.1 Track A — Boundary / UI Contract TDD
+- 입력 검증 실패 케이스를 Red로 먼저 고정한다.
+- 성공 경로의 출력 형식을 계약 테스트로 고정한다.
+- 실패 응답 코드/메시지 고정 테스트를 포함한다.
+- FR-01 실패 케이스에서 Domain resolver 미호출을 검증한다.
+
+### 15.2 Track B — Domain / Logic TDD
+- 빈칸 탐색 규칙(row-major)을 Red로 고정한다.
+- 누락 숫자 계산 및 오름차순 반환을 Red로 고정한다.
+- 마방진 판정 규칙(행/열/대각선, 상수 34)을 Red로 고정한다.
+- Attempt 1 성공, Attempt 2 성공, 양쪽 실패를 각각 독립 테스트로 고정한다.
+
+### 15.3 Parallel Progression Rules
+- UI Red와 Logic Red를 분리한다.
+- UI Green과 Logic Green은 각각 최소 구현만 허용한다.
+- 구조 개선은 Refactor 단계에서만 수행한다.
+- Domain 전량 구현 후 Boundary를 연결하는 일괄 방식은 금지한다.
+- 테스트 삭제/완화로 통과시키는 행위는 금지한다.
+
+---
+
+## 16. Test Plan / QA
+
+### 16.1 Normal Scenarios
+- TC-N-01: small-first 성공
+- TC-N-02: small-first 실패 후 reverse 성공
+
+### 16.2 Exception Scenarios
+- TC-E-01: invalid size
+- TC-E-02: invalid blank count
+- TC-E-03: invalid range
+- TC-E-04: duplicate non-zero
+- TC-E-05: both combinations fail (`ERR_UNSOLVABLE`)
+
+### 16.3 Boundary Scenarios
+- TC-B-01: 최소값 1 포함
+- TC-B-02: 최대값 16 포함
+- TC-B-03: 0은 빈칸으로만 해석
+- TC-B-04: 출력 좌표 1-index
+- TC-B-05: 반환 배열 길이 6
+
+### 16.4 Representative Test Data
+
+| Test Data ID | Purpose | Matrix (4x4) | Expected |
+|---|---|---|---|
+| TD-01 | small-first 성공 | `[[16,2,0,13],[5,11,10,8],[9,7,6,0],[4,14,15,1]]` | 성공, Attempt 1 경로 |
+| TD-02 | reverse 성공 | `[[0,2,3,13],[5,11,10,8],[9,7,6,12],[4,14,15,0]]` | 성공, Attempt 2 경로 |
+| TD-03 | invalid size | `[[1,2],[3,4]]` | `ERR_INVALID_SIZE` |
+| TD-04 | invalid blank count | `[[16,2,3,13],[5,11,10,8],[9,7,6,12],[4,14,15,1]]` | `ERR_INVALID_BLANK_COUNT` |
+| TD-05 | duplicate value | `[[16,2,0,13],[5,11,10,8],[9,7,6,0],[4,14,15,16]]` | `ERR_DUPLICATE_NON_ZERO` |
+| TD-06 | invalid range | `[[16,2,0,13],[5,11,10,8],[9,7,6,0],[4,14,15,17]]` | `ERR_OUT_OF_RANGE` |
+
+---
+
+## 17. Architecture Overview, High-Level
+
+### Boundary Layer
+- 입력 검증 수행
+- 오류 응답 표준화
+- 성공 출력 형식 변환
+
+### Domain Layer
+- 빈칸 탐색
+- 누락 숫자 계산
+- 마방진 판정
+- 두 조합 시도 및 성공 경로 결정
+
+### Control / Application Layer
+- Boundary와 Domain 호출 흐름 조정
+- 요청/응답 수명주기 오케스트레이션
+
+의존 방향:
+- Boundary → Control → Domain
+- Domain은 Boundary를 참조하지 않는다.
+- Domain은 UI, DB, Web, 파일 시스템에 의존하지 않는다.
+
+---
+
+## 18. Component Candidates
+
+| Component | Responsibility | Layer | Input | Output | Related FR | Related Test |
+|---|---|---|---|---|---|---|
+| `BoundaryValidator` | 입력 계약 검증 및 사전 거부 | Boundary | `int[][]` | 검증 통과/오류코드 | FR-01 | TC-E-01~04 |
+| `BlankFinder` | row-major 빈칸 2개 좌표 탐색 | Domain | 검증 통과 행렬 | 빈칸 좌표 2개 | FR-02 | TC-B-03, TC-N-01 |
+| `MissingNumberFinder` | 누락 숫자 2개 계산 및 정렬 | Domain | 검증 통과 행렬 | `small, large` | FR-03 | TC-N-01, TC-N-02 |
+| `MagicSquareValidator` | 합 34 불변식 판정 | Domain | 완성 후보 행렬 | `true/false` | FR-04 | TC-N-01, TC-N-02, TC-E-05 |
+| `Solver` | Attempt 1/2 순서 시도 및 경로 선택 | Domain | 검증 통과 행렬 | 성공 결과 또는 `ERR_UNSOLVABLE` | FR-05 | TC-N-01, TC-N-02, TC-E-05 |
+| `ResultFormatter` | `int[6]`, 1-index 출력 계약 고정 | Boundary | 성공 경로 결과 | `[r1,c1,n1,r2,c2,n2]` | FR-05 | TC-B-04, TC-B-05 |
+
+---
+
+## 19. Risks & Ambiguities
+
+| Risk | Impact | Decision / Mitigation |
+|---|---|---|
+| 1-index/0-index 혼동 | 출력 계약 위반 | BR-12 고정, TC-B-04 필수 |
+| row-major 첫 빈칸 정의 누락 | Solver 결과 순서 불일치 | BR-05 고정, FR-02 AC 필수 |
+| small-first/reverse 데이터 혼동 | 테스트 오검출 | TD-01/TD-02 고정, 케이스 분리 |
+| 입력 행렬 변경 여부 불명확 | 부작용 회귀 발생 | NFR-05 고정(입력 불변) |
+| 두 조합 실패 정책 누락 | 실패 처리 분기 붕괴 | `ERR_UNSOLVABLE` 반환으로 확정 |
+| 상수 34 하드코딩 남용 | 변경 취약성과 가독성 저하 | BR-08 + NFR-08로 상수 명명 고정 |
+| Boundary/Domain 책임 혼합 | 계층 의존 위반 | 아키텍처 규칙 및 FR 레이어 고정 |
+
+---
+
+## 20. Engineering Principles
+
+- Python 3.10+ 기준
+- PEP8 준수
+- 모든 함수에 타입힌트 명시
+- public 함수/메서드 docstring 관리
+- `pytest` 사용
+- AAA 패턴 사용
+- Coverage 목표 준수(95/85/80)
+- ECB 계층 분리 준수
+- RED-GREEN-REFACTOR 순서 준수
+- `print()` 디버깅 금지
+- bare `except` 금지
+- 테스트 약화/삭제 금지
+- 설명 없는 magic number 금지
+
+---
+
+## 21. Traceability Matrix
+
+| Concept / Invariant | Business Rule | Feature ID | Acceptance Criteria | Test Case Candidate | Component |
+|---|---|---|---|---|---|
+| 4x4 입력 | BR-01 | FR-01 | AC-FR01-01 | TC-E-01 | BoundaryValidator |
+| 빈칸 2개 | BR-02 | FR-01 | AC-FR01-02 | TC-E-02 | BoundaryValidator |
+| 값 범위 0 또는 1~16 | BR-03 | FR-01 | AC-FR01-03 | TC-E-03 | BoundaryValidator |
+| 중복 금지(0 제외) | BR-04 | FR-01 | AC-FR01-04 | TC-E-04 | BoundaryValidator |
+| row-major 첫 번째 빈칸 | BR-05 | FR-02 | AC-FR02-01 | TC-N-01 | BlankFinder |
+| 누락 숫자 2개 | BR-06 | FR-03 | AC-FR03-01 | TC-N-01 | MissingNumberFinder |
+| 누락 숫자 오름차순 | BR-07 | FR-03 | AC-FR03-02 | TC-N-01, TC-N-02 | MissingNumberFinder |
+| 마방진 상수 34 | BR-08 | FR-04 | AC-FR04-01 | TC-N-01, TC-N-02 | MagicSquareValidator |
+| 행/열/대각선 합 | BR-09 | FR-04 | AC-FR04-02 | TC-E-05 | MagicSquareValidator |
+| small-first 시도 | BR-10 | FR-05 | AC-FR05-01 | TC-N-01 | Solver |
+| reverse 시도 | BR-11 | FR-05 | AC-FR05-02 | TC-N-02 | Solver |
+| int[6] 반환 | BR-13 | FR-05 | AC-FR05-04 | TC-B-05 | ResultFormatter |
+| 1-index 좌표 | BR-12 | FR-05 | AC-FR05-04 | TC-B-04 | ResultFormatter |
+
+---
+
+## 22. Open Questions / Decision Needed
+
+- **Decision Needed 01:** 문서 참조명 정규화 필요  
+  - 현재 실파일명과 참조 문서 번호 체계(1~4)가 다르다. PRD 본문의 공식 참조 표기 규칙을 확정해야 한다.
+- **Decision Needed 02:** 커버리지 게이트 우선순위 확정 필요  
+  - 레이어별 목표(95/85)와 프로젝트 최소(80) 중 CI 차단 기준을 어떤 레벨로 적용할지 확정해야 한다.
+- **Decision Needed 03:** 성능 측정 기준 확정 필요  
+  - 50ms 기준 측정 환경(로컬 단일 스레드, 반복 횟수, warm-up 여부)을 QA 기준으로 확정해야 한다.
+
+---
+
+## 23. Appendix
+
+### 23.1 참고 문서 목록
+- Problem Definition Report
+- User Journey / Epic to Technical Scenario Report
+- Clean Architecture + Dual-Track TDD Design Report
+- Development Environment + Cursor Rules + ECB Report
+- `.cursorrules`
+- `.cursor/rules/*.mdc`
+
+### 23.2 Cursor Rules 요약
+- ECB 계층 분리 및 의존 방향 고정
+- TDD 단계 준수(Red → Green → Refactor)
+- pytest + AAA 사용
+- 타입힌트/문서화 규칙 준수
+- 금지 패턴(`print()`, bare except, 설명 없는 매직 넘버) 차단
+
+### 23.3 대표 Gherkin Scenario 요약
+- Scenario-G1: Given 유효 입력, When small-first 성립, Then Attempt 1 순서 결과 반환
+- Scenario-G2: Given 유효 입력, When small-first 불성립 and reverse 성립, Then Attempt 2 순서 결과 반환
+- Scenario-G3: Given invalid size, When 검증 수행, Then `ERR_INVALID_SIZE` 반환 및 Domain 미호출
+- Scenario-G4: Given 유효 입력, When 두 조합 모두 불성립, Then `ERR_UNSOLVABLE` 반환
+
+### 23.4 향후 RED Test ID 후보
+- RED-BND-01 size 검증 실패
+- RED-BND-02 blank count 검증 실패
+- RED-BND-03 range 검증 실패
+- RED-BND-04 duplicate 검증 실패
+- RED-BND-05 resolver 미호출 검증
+- RED-DOM-01 row-major blank 탐색
+- RED-DOM-02 missing numbers 오름차순
+- RED-DOM-03 magic sum 판정
+- RED-DOM-04 small-first 성공
+- RED-DOM-05 reverse 성공
+- RED-DOM-06 unsolvable 실패 정책
+
+원하시면 다음 단계에서 이 Markdown을 그대로 파일 저장 가능한 형태로 다듬어(`docs/PRD_MagicSquare.md` 기준) 최종본 버전 태깅 규칙까지 맞춰드리겠습니다.
+
+---
+
+**User**
+
+PRD 본문(docs/PRD_MagicSquare.md)은 파일로 저장해줘
+
+---
+
+**Cursor**
+
+이전에 작성한 PRD 본문을 `docs/PRD_MagicSquare.md`로 저장합니다.
+
+[REDACTED]
+
+---
+
+**Cursor**
+
+`docs/PRD_MagicSquare.md`에 PRD 본문을 저장했습니다.
+
+포함 내용:
+- 23개 섹션 전체 (Executive Summary ~ Appendix)
+- FR-01~05, BR-01~13, NFR, Traceability Matrix
+- Dual-Track TDD, Error Policy, Test Plan
+- Open Questions (Decision Needed 01~03)
+
+경로: `C:/DEV/MagicSquare_xx/docs/PRD_MagicSquare.md`
+
+[REDACTED]
+
+---
+
+**User**
+
+방금 작성한 PRD를 검토하십시오.
+다음 기준으로 누락, 모순, 모호함을 찾아주세요.
+
+1. 모든 FR에 테스트 가능한 AC가 있는가?
+2. 모든 AC가 Traceability Matrix에 연결되어 있는가?
+3. Boundary와 Domain 책임이 섞인 곳은 없는가?
+4. 오류 정책이 미정으로 남아 있지 않은가?
+5. small-first 성공과 reverse 성공 테스트 데이터가 구분되어 있는가?
+6. 1-index 좌표와 row-major 규칙이 누락되지 않았는가?
+7. 구현 코드나 테스트 코드가 포함되어 있지 않은가?
+
+수정하지 말고 문제와 개선안만 보고하십시오.
+
+---
+
+**Cursor**
+
+PRD 파일을 읽고 7가지 검토 기준에 맞춰 누락·모순·모호함을 점검합니다.
+
+[REDACTED]
+
+---
+
+**Cursor**
+
+# PRD 검토 보고서
+
+검토 대상: `docs/PRD_MagicSquare.md`  
+검토 방식: 7개 기준별 점검 (수정 없음)
+
+---
+
+## 종합 판정
+
+| 기준 | 판정 | 요약 |
+|---|---|---|
+| 1. FR별 테스트 가능 AC | **부분 충족** | FR-01~05에 AC는 있으나, 성공 경로·메시지·내부 좌표계 AC가 부족 |
+| 2. AC ↔ Traceability 연결 | **미충족** | 15개 AC 중 5개가 Matrix에 없거나 잘못 연결됨 |
+| 3. Boundary/Domain 분리 | **부분 충족** | FR-05·오류 처리·Solver 책임에서 혼합 흔적 |
+| 4. 오류 정책 확정 | **대체로 충족** | `ERR_UNSOLVABLE` 확정됨. 응답 스키마·검증 우선순위는 미정 |
+| 5. small-first / reverse 데이터 구분 | **부분 충족** | TD-01/TD-02 분리됨. 기대값·Attempt 1 실패 증명은 미약 |
+| 6. 1-index / row-major | **부분 충족** | 최종 출력은 명시. 내부 좌표·두 번째 빈칸 추적은 약함 |
+| 7. 구현/테스트 코드 미포함 | **충족** | 구현·테스트 코드 없음 (계약 표기 수준만 존재) |
+
+---
+
+## 1. 모든 FR에 테스트 가능한 AC가 있는가?
+
+### 충족
+- FR-01~05 모두 `AC-FRxx-xx` 형식의 AC를 가짐
+- 실패 코드, boolean 판정, 배열 길이 등은 검증 가능한 표현
+
+### 문제
+
+| ID | 문제 | 영향 |
+|---|---|---|
+| P1-01 | **FR-01 성공 경로 AC 없음** | 유효 입력 통과 후 다음 단계 호출 여부를 FR 단위로 검증할 수 없음 |
+| P1-02 | **FR-02 AC가 좌표 값을 고정하지 않음** | “row-major 첫 번째 0”만 말하고, TD-01 기준 `(1,3)` 같은 기대값이 AC에 없음 |
+| P1-03 | **FR-03 AC에 기대 숫자 쌍 없음** | “오름차순 2개”만 있고, TD-01에서 `(3, 12)` 같은 구체값이 AC에 없음 |
+| P1-04 | **FR-02/03 내부 좌표가 0-index인지 1-index인지 AC에 없음** | Domain 내부와 Boundary 출력의 인덱스 규칙이 분리 검증되지 않음 |
+| P1-05 | **오류 메시지 문자열 일치 AC 없음** | §13에 메시지가 있으나 AC-FR01-01~04는 코드만 검증 |
+| P1-06 | **§9.1 “출력 계약 검증”에 대응 FR/AC 없음** | In-Scope 항목이 FR-05에 묶여 있어 Boundary 출력 검증이 독립 추적 불가 |
+
+### 개선안
+- FR-01에 `AC-FR01-06`: 유효 입력(TD-01) 시 검증 통과 및 Domain 호출 허용
+- FR-02/03에 TD-01 연계 AC 추가: 기대 좌표·누락 숫자 `(small, large)` 명시
+- 내부 좌표계를 “Domain 내부 0-index, 외부 출력 1-index”로 AC에 분리 명시
+- Boundary 오류 메시지 exact-match AC를 Track A에 1개씩 추가
+- “출력 계약 검증”을 FR-05에서 분리하거나, FR-05에 `AC-FR05-05`(메시지/스키마) 추가
+
+---
+
+## 2. 모든 AC가 Traceability Matrix에 연결되어 있는가?
+
+### AC 전체 목록 (15개)
+
+| AC | Matrix 연결 | 비고 |
+|---|---|---|
+| AC-FR01-01 | O | 4x4 입력 |
+| AC-FR01-02 | O | 빈칸 2개 |
+| AC-FR01-03 | O | 값 범위 |
+| AC-FR01-04 | O | 중복 금지 |
+| **AC-FR01-05** | **X** | Domain resolver 미호출 |
+| AC-FR02-01 | O | row-major 첫 빈칸 |
+| **AC-FR02-02** | **X** | row-major 두 번째 빈칸 |
+| AC-FR03-01 | O | 누락 숫자 2개 |
+| AC-FR03-02 | O | 오름차순 |
+| AC-FR04-01 | O | 합 34 만족 |
+| AC-FR04-02 | △ | **TC-E-05(unsolvable)에 연결 — 개념 불일치** |
+| AC-FR05-01 | O | small-first |
+| AC-FR05-02 | O | reverse |
+| **AC-FR05-03** | **X** | `ERR_UNSOLVABLE` |
+| AC-FR05-04 | O | int[6] + 1-index (2행으로 분리) |
+
+### 문제
+
+| ID | 문제 | 영향 |
+|---|---|---|
+| P2-01 | AC 3개 미연결 (01-05, 02-02, 05-03) | Traceability 완전성 주장(§6)과 불일치 |
+| P2-02 | `행/열/대각선 합` → TC-E-05 연결 | unsolvable은 “합 위반”이 아니라 “조합 실패” 개념 |
+| P2-03 | Matrix가 Concept 중심, AC-ID 전수 목록 아님 | AC 누락을 문서만으로 발견하기 어려움 |
+| P2-04 | NFR, Epic 성공 기준, Gherkin Scenario 미연결 | §21이 FR AC 전체를 커버한다고 보기 어려움 |
+
+### 개선안
+- Matrix에 **AC-ID 컬럼을 전수 포함**하는 “AC Coverage Table” 추가
+- `ERR_UNSOLVABLE` 전용 행 추가: BR-10/11, FR-05, AC-FR05-03, TC-E-05, Solver/Boundary
+- `행/열/대각선 합`은 TC-N-01/02 또는 전용 negative 케이스로 재연결
+- §23.3 Gherkin Scenario-G1~G4를 AC-ID에 1:1 매핑
+
+---
+
+## 3. Boundary와 Domain 책임이 섞인 곳은 없는가?
+
+### 충족
+- FR-01~04는 Layer가 Boundary/Domain으로 분리됨
+- §13에서 입력 검증 실패 시 Domain 미호출 정책 명시
+- §17 의존 방향 `Boundary → Control → Domain` 명시
+
+### 문제
+
+| ID | 위치 | 문제 | 영향 |
+|---|---|---|---|
+| P3-01 | FR-05 Layer | `Domain + Boundary Formatting` 단일 FR | Dual-Track 분리 원칙과 충돌 |
+| P3-02 | FR-05 Output | 실패 `ERR_UNSOLVABLE`를 Domain Output으로 기술 | §13은 Boundary 표준화 — 책임 소재 모호 |
+| P3-03 | Component `Solver` | “성공 결과 또는 ERR_UNSOLVABLE” 반환 | 오류 코드 포맷팅은 Boundary/ResultFormatter 책임이어야 함 |
+| P3-04 | §9.1 + §15.1 | 출력 형식 검증이 Track A에 있으나 FR은 Domain 쪽에 편중 | Track A 전용 FR 부재 |
+| P3-05 | Control Layer | §17에 존재하나 FR/AC 없음 | 오케스트레이션 책임이 Boundary/Domain 어디에도 귀속되지 않음 |
+
+### 개선안
+- FR-05를 **FR-05a(Domain Solver)** / **FR-05b(Boundary ResultFormatter)** 로 분리
+- Domain은 `CompletionPlan`(내부 DTO)만 반환, Boundary가 `int[6]`·오류 스키마 변환
+- `ERR_UNSOLVABLE` 생성 주체를 Boundary Mapper로 고정하고 AC-FR01-05와 함께 Track A에 배치
+- Control Layer를 In-Scope에 넣을지, Out-of-Scope로 명시할지 결정
+
+---
+
+## 4. 오류 정책이 미정으로 남아 있지 않은가?
+
+### 충족
+- 5개 실패 케이스 모두 Error Code + Message 정의
+- `ERR_UNSOLVABLE` = **예외 throw 금지, 오류 응답 반환**으로 확정
+- 입력 검증 실패 시 Domain resolver 미호출 확정
+
+### 문제
+
+| ID | 문제 | 영향 |
+|---|---|---|
+| P4-01 | **오류 응답 스키마 미완전** | `{code, message, details?}`가 §12.2에 일부만 있고, Boundary 4종 공통 스키마 AC 없음 |
+| P4-02 | **복수 위반 시 우선순위 미정** | size+blank+range 동시 위반 시 어떤 코드를 반환할지 테스트 불가 |
+| P4-03 | **성공 응답 래핑 형식 미정** | `int[6]` 단독 반환인지, success wrapper 객체인지 불명확 |
+| P4-04 | §22 Decision Needed 02/03 | 오류 정책은 아니지만 품질 게이트(커버리지·성능)가 QA 판정 기준으로 미확정 |
+
+### 개선안
+- §13에 **Validation precedence table** 추가 (예: size → blank count → range → duplicate)
+- Boundary Error Response Contract 표준화: 필수 필드 `code`, `message` + AC
+- 성공/실패 응답 union 타입을 계약 표에 명시
+- §22 항목은 “구현 차단 여부”까지 Decision Needed에 분리
+
+---
+
+## 5. small-first / reverse 테스트 데이터가 구분되어 있는가?
+
+### 충족
+- TD-01(small-first), TD-02(reverse) ID·목적·행렬이 분리됨
+- TC-N-01/02와 매핑됨
+
+### 문제
+
+| ID | 문제 | 영향 |
+|---|---|---|
+| P5-01 | **기대 `int[6]` 값 미기재** | “Attempt 1/2 경로”만 있어 자동 검증 불가 |
+| P5-02 | **TD-01에서 Attempt 1만 성공함을 증명하는 AC 없음** | Attempt 2도 성공하는 입력이면 AC-FR05-01과 충돌 가능 |
+| P5-03 | **TD-02에서 Attempt 1 실패 증명 없음** | reverse 케이스인지 이름만으로는 검증 불가 |
+| P5-04 | TD-02 행렬 유효성(빈칸 2개·중복 없음)은 만족하나, **마방진 성립 경로 검증 데이터 없음** | TD-02가 실제로 solvable인지 PRD만으로 확정 어려움 |
+
+### 개선안
+- TD-01/TD-02에 **Expected Output** 컬럼 추가: `[r1,c1,n1,r2,c2,n2]` 고정값
+- TD-01에 `AC 보조`: Attempt 1 후보는 magic, Attempt 2 후보는 non-magic (또는 시도 안 함)
+- TD-02에 `AC 보조`: Attempt 1 후보는 non-magic, Attempt 2 후보는 magic
+- §16.4를 “Representative Test Data (Verified)”로 승격하고 검증 근거 1줄 추가
+
+---
+
+## 6. 1-index 좌표와 row-major 규칙이 누락되지 않았는가?
+
+### 충족
+- BR-05(row-major 첫 빈칸), BR-12(1-index 출력), BR-13(int[6] 형식)
+- §12.1 `first blank definition`, §12.2 `coordinate index`
+- AC-FR05-04, TC-B-04, TC-B-05
+
+### 문제
+
+| ID | 문제 | 영향 |
+|---|---|---|
+| P6-01 | **row-major 두 번째 빈칸이 Matrix에 없음** | BR-05는 첫 빈칸만 강조, AC-FR02-02는 추적 누락 |
+| P6-02 | **내부 Domain 좌표 인덱스 규칙 미명시** | BlankFinder 출력이 0-index인지 1-index인지 FR-02 Output에 불명확 |
+| P6-03 | §12.1 예시 `(1,3)`과 FR-02 Output `(r1,c1)` 관계 불명확 | 1-index 예시인지, 0-index를 1-index로 표기한 것인지 혼동 |
+| P6-04 | **row-major 정의가 알고리즘 수준으로 고정되지 않음** | “행 우선 스캔”은 있으나 `(row 0→3, col 0→3)` 같은 스캔 순서 AC 없음 |
+
+### 개선안
+- BR-05를 BR-05a(첫 빈칸), BR-05b(두 번째 빈칸)로 분리하고 Matrix에 각각 AC-FR02-01/02 연결
+- §12에 **Coordinate Index Policy** 추가: Domain internal 0-index, External output 1-index
+- AC-FR02-01/02에 TD-01 기준 기대 좌표 쌍 명시 (외부 출력 기준 1-index로 통일할 경우 변환 규칙도 명시)
+
+---
+
+## 7. 구현 코드 / 테스트 코드 포함 여부
+
+### 충족
+- Python 구현 코드 없음
+- pytest 테스트 코드 없음
+- `int[][]`, `int[6]`, error code 문자열은 **계약 표기**로 적절
+
+### 주의 (문제 아님)
+- §16.4 행렬 리터럴은 **Representative Test Data**이며 테스트 코드는 아님
+- §23.4 RED Test ID는 후보 목록이며 실행 코드 아님
+
+### 개선안
+- 문서 서두에 “본 PRD는 계약 표기만 포함하며 실행 코드는 포함하지 않는다”를 1문장 추가하면 검토 혼동 방지에 유리함 (선택)
+
+---
+
+## 기준별 최종 체크리스트
+
+| # | 질문 | 결과 |
+|---|---|---|
+| 1 | 모든 FR에 테스트 가능 AC? | **아니오** — FR-01 성공 경로, FR-02/03 구체값, 출력 검증 FR 부족 |
+| 2 | 모든 AC가 Matrix 연결? | **아니오** — 3 AC 누락, 1 AC 잘못 연결 |
+| 3 | Boundary/Domain 혼합 없음? | **아니오** — FR-05, Solver 오류 반환, Control Layer 공백 |
+| 4 | 오류 정책 미정 없음? | **거의 예** — 스키마·우선순위·성공 래핑만 잔여 |
+| 5 | small-first / reverse 데이터 구분? | **부분** — ID 분리는 됨, 기대값·Attempt 실패 증명 부족 |
+| 6 | 1-index / row-major 누락 없음? | **부분** — 외부 출력은 명시, 내부 좌표·두 번째 빈칸 추적 약함 |
+| 7 | 구현/테스트 코드 미포함? | **예** |
+
+---
+
+## 우선 수정 권장 순서 (개선안만, 수정 미실시)
+
+1. **AC Coverage Table** 추가 — AC-FR01-05, AC-FR02-02, AC-FR05-03 Matrix 반영  
+2. **FR-05 레이어 분리** — Domain Solver vs Boundary Formatter  
+3. **TD-01/TD-02 Expected Output + Attempt 실패/성공 증명 AC** 추가  
+4. **오류 응답 스키마 + 검증 우선순위** 확정  
+5. **내부(0-index) vs 외부(1-index) 좌표 정책** 1문단 + AC로 고정  
+
+원하시면 위 항목만 반영한 **PRD 개정안(diff 형태)**을 다음 단계에서 작성할 수 있습니다. (이번 요청대로 파일 수정은 하지 않았습니다.)
+
+[REDACTED]
+
+---
+
+**User**
+
+Report 폴더에 보고서 생성하고, Prompt 폴더에 Transcript도 Export 해줘
+05 라는 프리픽스를 붙여서 네이밍 해주고, 프롬프트 폴더도 동일한 이름에 확장자만 .prompt 로 지정해줘
+
+---

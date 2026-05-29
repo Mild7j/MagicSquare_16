@@ -1,0 +1,23 @@
+---
+description: MagicSquare 작업 시 Cursor AI 행동 규칙
+alwaysApply: true
+---
+
+# AI Behavior
+
+## Before Coding
+
+- 관련 테스트 파일과 기존 실패 테스트를 먼저 확인한다.
+- 변경 기능이 속한 ECB 레이어를 식별한다.
+
+## During Coding
+
+- ECB 레이어 경계를 위반하는 호출을 생성하지 않는다.
+- 타입힌트 없는 함수를 생성하지 않는다.
+- TDD 순서(red -> green -> refactor)를 건너뛰지 않는다.
+
+## After Coding
+
+- 변경 범위와 연관된 테스트를 실행한다.
+- TDD 위반이 감지되면 경고를 출력하고 중단한다.
+- public API 변경 시 docstring과 테스트를 함께 갱신한다.
