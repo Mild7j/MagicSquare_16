@@ -19,7 +19,6 @@ from src.boundary.schemas import ErrorResponse
 from src.boundary.screen.grids import GRID_G1
 from src.boundary.ui_boundary import UIBoundary
 from src.control.solve_partial_magic_square import SolvePartialMagicSquare
-from src.entity.services.two_cell_solver import UnsolvableDomainError
 from src.entity.value_objects.grid_size import GRID_SIZE
 from src.entity.value_objects.magic_constant import BLANK_VALUE, MAX_CELL_VALUE
 
@@ -89,11 +88,7 @@ class MagicSquareMainWindow(QMainWindow):
     def _on_solve_clicked(self) -> None:
         """Invoke UIBoundary.solve and render success or failure text."""
         grid = self._read_grid()
-        try:
-            result = self._ui_boundary.solve(grid)
-        except (UnsolvableDomainError, ValueError) as exc:
-            self._result_label.setText(f"오류: {exc}")
-            return
+        result = self._ui_boundary.solve(grid)
 
         if isinstance(result, ErrorResponse):
             self._result_label.setText(f"오류: {result.message}")

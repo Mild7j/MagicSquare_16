@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from src.boundary.schemas import ErrorResponse
 from src.boundary.validator import BoundaryValidator
+from src.control.exceptions import ResolveError
 from src.control.solve_partial_magic_square import SolvePartialMagicSquare
 
 
@@ -25,15 +26,25 @@ class UIBoundary:
         self._solver = solver or SolvePartialMagicSquare()
 
     def solve(self, matrix: list[list[int]] | None) -> ErrorResponse | list[int]:
-        """Validate input size and delegate to Control when the contract passes.
+        """Validate input contracts and delegate to Control when validation passes.
 
         Args:
             matrix: External 4x4 input grid.
 
         Returns:
-            ErrorResponse when size validation fails; otherwise resolver output.
+            ErrorResponse when validation or resolution fails; otherwise resolver output.
         """
         size_error = self._validator.validate_size(matrix)
         if size_error is not None:
             return size_error
-        return self._solver.resolve(matrix)
+
+        assert matrix is not None
+
+        blank_error = self._validator.validate_blank_count(matrix)
+        if blank_error is not None:
+            return blank_error
+
+        try:
+            return self._solver.resolve(matrix)
+        except ResolveError as exc:
+            return ErrorResponse(code=exc.code, message=exc.message)

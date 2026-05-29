@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+from src.entity.exceptions.domain_errors import InvalidBlankCountError
 from src.entity.value_objects.grid_size import GRID_SIZE
 from src.entity.value_objects.magic_constant import BLANK_VALUE
+
+EXPECTED_BLANK_COUNT = 2
 
 
 def find_blank_coords(matrix: list[list[int]]) -> list[tuple[int, int]]:
@@ -14,10 +17,17 @@ def find_blank_coords(matrix: list[list[int]]) -> list[tuple[int, int]]:
 
     Returns:
         Two (row, col) pairs using 1-index coordinates.
+
+    Raises:
+        InvalidBlankCountError: When the grid does not contain exactly two blanks.
     """
     coords: list[tuple[int, int]] = []
     for row_index in range(GRID_SIZE):
         for col_index in range(GRID_SIZE):
             if matrix[row_index][col_index] == BLANK_VALUE:
                 coords.append((row_index + 1, col_index + 1))
+
+    if len(coords) != EXPECTED_BLANK_COUNT:
+        raise InvalidBlankCountError()
+
     return coords

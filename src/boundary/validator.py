@@ -3,7 +3,11 @@
 from __future__ import annotations
 
 from src.boundary.constants import (
+    BLANK_VALUE,
+    EXPECTED_BLANK_COUNT,
     GRID_DIMENSION,
+    INVALID_BLANK_COUNT_CODE,
+    INVALID_BLANK_COUNT_MESSAGE,
     INVALID_SIZE_CODE,
     INVALID_SIZE_MESSAGE,
 )
@@ -26,6 +30,28 @@ class BoundaryValidator:
             return ErrorResponse(
                 code=INVALID_SIZE_CODE,
                 message=INVALID_SIZE_MESSAGE,
+            )
+        return None
+
+    def validate_blank_count(self, grid: list[list[int]]) -> ErrorResponse | None:
+        """Verify that the grid contains exactly two blank cells.
+
+        Args:
+            grid: A size-valid 4x4 input matrix.
+
+        Returns:
+            ErrorResponse when blank count is invalid; None when exactly two blanks.
+        """
+        blank_count = sum(
+            1
+            for row in grid
+            for value in row
+            if value == BLANK_VALUE
+        )
+        if blank_count != EXPECTED_BLANK_COUNT:
+            return ErrorResponse(
+                code=INVALID_BLANK_COUNT_CODE,
+                message=INVALID_BLANK_COUNT_MESSAGE,
             )
         return None
 

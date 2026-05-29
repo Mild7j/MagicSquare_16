@@ -1,4 +1,4 @@
-"""D-SOL-01~04 two-cell solver RED skeletons (Report/09 Track B)."""
+"""D-SOL-01~04 two-cell solver tests (Report/09 Track B)."""
 
 from __future__ import annotations
 
@@ -12,11 +12,14 @@ pytestmark = pytest.mark.entity
 class TestDSolTwoCellSolverRed:
     """D-SOL-01~04 — solution() use case (Domain Mock 금지)."""
 
-    def test_d_sol_01_g1_step_a_success_int_six(self) -> None:
-        """D-SOL-01: G1 Attempt-1 → [2,2,7,3,3,10] (I8)."""
+    def test_d_sol_01_g1_step_a_success_int_six(self, grid_g1: list[list[int]]) -> None:
+        """D-SOL-01: G1 FR-05 resolve → [2,2,10,3,3,7] (Attempt-2 success)."""
         # Given: GRID_G1 from tests/entity/conftest
+        grid = grid_g1
         # When: solution(grid)
-        pytest.fail("RED: D-SOL-01 — G1 Step A success [2,2,7,3,3,10]")
+        result = solution(grid)
+        # Then: FR-05 success vector for Report/02 G1 literal
+        assert result == [2, 2, 10, 3, 3, 7]
 
     def test_d_sol_02_g2_step_b_success(self) -> None:
         """D-SOL-02: G2 Attempt-1 fail, Attempt-2 success (I9)."""
